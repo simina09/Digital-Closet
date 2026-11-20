@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Closet – Contact & Asistenta Stil</title>
-    
-    <!-- Fonturi Google -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
-    <!-- Google Analytics -->
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=TAG_ID"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -37,227 +35,496 @@
             --border-line: #2e2e2e;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            /* Pune poza pe tot ecranul, cu un strat subtil intunecat peste ea ca sa poti citi textul */
-            background-image: linear-gradient(rgba(17, 17, 17, 0.7), rgba(17, 17, 17, 0.8)), url('index1.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            
-            color: #f5f5f5; /* Text alb pe fundal imagine */
+            position: relative;
+            min-height: 100vh;
+            color: #f5f5f5;
             font-family: 'Inter', sans-serif;
-            padding-top: 135px;
             overflow-x: hidden;
+            background-color: #111111;
         }
 
-        /* --- HEADER --- */
+        /* Fundal fix compatibil si cu iPhone (fara zoom/blur defect) */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image: linear-gradient(rgba(17, 17, 17, 0.35), rgba(17, 17, 17, 0.50)), url('index1.jpg');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+        }
+        .contact-header, .reviews-header {
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
+        }
+        /* --- HEADER (STICKY) --- */
         .vogue-header {
-            position: fixed; top: 0; left: 0; width: 100%;
-            background-color: var(--header-bg); z-index: 1000;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: var(--header-bg);
+            z-index: 1000;
             border-bottom: 1px solid var(--border-line);
         }
+
         .header-top {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 18px 5%; border-bottom: 1px solid var(--border-line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 5%;
+            border-bottom: 1px solid var(--border-line);
         }
-        .header-spacer { width: 110px; }
+
+        .header-spacer {
+            width: 110px;
+        }
+
         .vogue-logo {
             font-family: 'Playfair Display', serif;
-            font-size: 2.4rem; font-weight: 700; letter-spacing: 4px;
-            text-transform: uppercase; text-decoration: none; color: var(--text-main);
+            font-size: 2.3rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text-main);
+            white-space: nowrap;
         }
+
         .theme-btn {
-            width: 110px; padding: 8px 14px; border-radius: 30px;
-            border: 1px solid var(--text-main); background: transparent;
-            color: var(--text-main); font-size: 0.78rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.2s;
+            width: 110px;
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--text-main);
+            background: transparent;
+            color: var(--text-main);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
         }
-        .theme-btn:hover { background: var(--text-main); color: var(--bg-page); }
+
+        .theme-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-page);
+        }
 
         .vogue-nav {
-            display: flex; justify-content: center; align-items: center;
-            gap: 32px; padding: 14px 5%; list-style: none; flex-wrap: wrap;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 28px;
+            padding: 12px 5%;
+            list-style: none;
+            flex-wrap: wrap;
         }
+
         .vogue-nav a {
-            text-decoration: none; color: var(--text-main); font-size: 0.78rem;
-            font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
-            padding-bottom: 4px; transition: opacity 0.2s;
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+            padding-bottom: 4px;
+            transition: opacity 0.2s;
         }
-        .vogue-nav a:hover { opacity: 0.6; }
-        .vogue-nav a.active { border-bottom: 2px solid var(--text-main); }
+
+        .vogue-nav a:hover {
+            opacity: 0.6;
+        }
+
+        .vogue-nav a.active {
+            border-bottom: 2px solid var(--text-main);
+        }
 
         /* --- CONTINUT CONTACT --- */
         .contact-container {
-            max-width: 1000px; margin: 40px auto 80px; padding: 0 5%;
+            max-width: 900px;
+            margin: 50px auto 75px;
+            padding: 0 5%;
         }
+
         .contact-header {
-            text-align: center; margin-bottom: 50px;
+            text-align: center;
+            margin-bottom: 40px;
         }
+
         .contact-header h1 {
-            font-family: 'Playfair Display', serif; font-size: 3rem;
-            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.15;
         }
+
         .contact-header p {
-            color: #d1d1d1; font-size: 1.05rem; /* Ajustat pentru vizibilitate pe fundal */
+            color: #d8d8d8;
+            font-size: 1.05rem;
+            line-height: 1.5;
         }
 
         .contact-form-wrapper {
-            background: rgba(30, 30, 30, 0.4);
+            background: rgba(24, 24, 24, 0.55);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 20px;
-            padding: 50px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            padding: 45px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
         }
+
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 22px;
         }
+
         .form-group label {
-            display: block; font-size: 0.8rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
         }
+
         .form-control {
-            width: 100%; padding: 14px 18px; border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.05); color: #f5f5f5;
-            font-size: 0.95rem; outline: none; transition: 0.2s;
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.06);
+            color: #f5f5f5;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: 0.2s;
         }
-        .form-control::placeholder { color: #aaaaaa; }
-        .form-control:focus { border-color: #ffffff; }
-        /* Fix pentru meniul dropdown (select) in ambele moduri */
+
+        .form-control::placeholder {
+            color: #aaaaaa;
+        }
+
+        .form-control:focus {
+            border-color: #ffffff;
+        }
+
         select option {
-            background-color: var(--bg-page);
-            color: var(--text-main);
+            background-color: #181818;
+            color: #f5f5f5;
         }
-        
-        textarea.form-control { resize: vertical; height: 150px; }
-        
+
+        textarea.form-control {
+            resize: vertical;
+            height: 140px;
+        }
+
         .submit-btn {
-            width: 100%; padding: 16px; background-color: #ffffff; color: #111111;
-            border: none; border-radius: 30px; font-size: 0.85rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: opacity 0.2s;
+            width: 100%;
+            padding: 15px;
+            background-color: #ffffff;
+            color: #111111;
+            border: none;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: opacity 0.2s;
         }
-        .submit-btn:hover { opacity: 0.85; }
-        
+
+        .submit-btn:hover {
+            opacity: 0.85;
+        }
+
         .success-msg {
-            display: none; margin-top: 20px; padding: 15px;
-            background-color: var(--accent-neon); color: #111111;
-            border-radius: 10px; text-align: center; font-weight: 600; font-size: 0.9rem;
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--accent-neon);
+            color: #111111;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
         /* --- SECTIUNE REVIEWS CU UMERASE --- */
         .reviews-wrapper {
-            max-width: 800px; margin: 80px auto; padding: 0 5%;
+            max-width: 800px;
+            margin: 70px auto;
+            padding: 0 5%;
         }
+
         .reviews-header {
-            text-align: center; margin-bottom: 25px;
+            text-align: center;
+            margin-bottom: 25px;
         }
+
         .reviews-header h2 {
-            font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
         }
-        .reviews-header p { color: #d1d1d1; }
-        
-        /* Umerasele */
+
+        .reviews-header p {
+            color: #d8d8d8;
+        }
+
         .hanger-rating {
-            display: flex; justify-content: center; gap: 12px; margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
         }
+
         .hanger-icon {
-            width: 38px; height: 38px;
-            stroke: rgba(255,255,255,0.5); fill: transparent;
-            cursor: pointer; transition: all 0.3s ease;
+            width: 38px;
+            height: 38px;
+            stroke: rgba(255, 255, 255, 0.55);
+            fill: transparent;
+            cursor: pointer;
+            transition: all 0.25s ease;
         }
-        .hanger-icon:hover { transform: translateY(-3px); }
-        
-        /* Culoarea roz-prafuit cand sunt selectate */
-        .hanger-icon.hovered, .hanger-icon.selected {
-            stroke: #e8a5b0; fill: rgba(232, 165, 176, 0.2); 
+
+        .hanger-icon:hover {
+            transform: translateY(-3px);
+        }
+
+        .hanger-icon.hovered,
+        .hanger-icon.selected {
+            stroke: #e8a5b0;
+            fill: rgba(232, 165, 176, 0.25);
         }
 
         .review-form {
-            display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 35px;
         }
-        .review-form input, .review-form textarea {
-            width: 100%; padding: 12px 15px; border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 8px; background: rgba(30, 30, 30, 0.4); backdrop-filter: blur(10px);
-            color: #f5f5f5; font-family: 'Inter', sans-serif; outline: none;
+
+        .review-form input,
+        .review-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 10px;
+            background: rgba(24, 24, 24, 0.55);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
         }
-        .review-form input::placeholder, .review-form textarea::placeholder { color: #aaaaaa; }
-        
+
+        .review-form input::placeholder,
+        .review-form textarea::placeholder {
+            color: #aaaaaa;
+        }
+
         .review-form button {
-            padding: 12px 25px; background: #ffffff; color: #111111;
-            border: none; border-radius: 30px; font-weight: 600; text-transform: uppercase;
-            cursor: pointer; align-self: center; transition: 0.3s;
+            padding: 12px 28px;
+            background: #ffffff;
+            color: #111111;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            align-self: center;
+            transition: 0.25s;
         }
-        .review-form button:hover { background: #e8a5b0; color: #ffffff; }
 
-        .reviews-list { display: flex; flex-direction: column; gap: 15px; }
+        .review-form button:hover {
+            background: #e8a5b0;
+            color: #ffffff;
+        }
+
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
         .review-card {
-            padding: 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
-            background: rgba(30, 30, 30, 0.6); backdrop-filter: blur(10px);
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            background: rgba(24, 24, 24, 0.65);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
-        .review-card-header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
-        }
-        .review-name { font-weight: bold; font-size: 1.05rem; }
-        .review-hangers-display { display: flex; gap: 4px; }
-        .review-hangers-display svg {
-            width: 20px; height: 20px; stroke: #e8a5b0; fill: rgba(232, 165, 176, 0.2);
-        }
-        .review-text-display { color: #d1d1d1; font-size: 0.95rem; line-height: 1.5; }
 
-        /* WIDGETURI & FOOTER */
-        .help-widget { position: fixed; bottom: 25px; left: 25px; z-index: 1000; }
+        .review-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .review-name {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .review-hangers-display {
+            display: flex;
+            gap: 4px;
+        }
+
+        .review-hangers-display svg {
+            width: 20px;
+            height: 20px;
+            stroke: #e8a5b0;
+            fill: rgba(232, 165, 176, 0.25);
+        }
+
+        .review-text-display {
+            color: #d8d8d8;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* --- WIDGETURI & FOOTER --- */
+        .help-widget {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 900;
+        }
+
         .help-circle {
-            width: 44px; height: 44px; border-radius: 50%; background: #ffffff;
-            color: #111111; border: 1px solid #ddd; font-size: 1.1rem;
-            font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #111111;
+            border: 1px solid #ddd;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
         }
-        .scroll-controls { position: fixed; bottom: 25px; right: 25px; z-index: 1000; display: flex; flex-direction: column; gap: 8px; }
+
+        .scroll-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
         .scroll-controls button {
-            width: 42px; height: 42px; border-radius: 50%; background: #ffffff;
-            color: #111111; border: 1px solid #ddd; font-size: 1rem; font-weight: bold;
-            cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.12); transition: 0.2s;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #111111;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+            transition: 0.2s;
         }
-        .scroll-controls button:hover { background: #111111; color: #ffffff; }
+
+        .scroll-controls button:hover {
+            background: #111111;
+            color: #ffffff;
+        }
 
         footer {
-            padding: 30px 5%; border-top: 1px solid rgba(255,255,255,0.1);
-            background: rgba(17,17,17,0.8); backdrop-filter: blur(10px);
-            display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;
+            padding: 30px 5%;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(17, 17, 17, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
         }
+
         .social-links a {
-            color: #f5f5f5; text-decoration: none; margin-left: 20px;
-            font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+            color: #f5f5f5;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.78rem;
         }
+
+        /* --- MOBIL --- */
         @media (max-width: 768px) {
-    /* Face header-ul mult mai compact pe telefon */
-    .header-spacer {
-        display: none !important;
-    }
-    .logo, .vogue-logo, header h1 {
-        font-size: 1.4rem !important;
-        letter-spacing: 2px !important;
-    }
-    .vogue-nav {
-        gap: 8px 14px !important;
-        padding: 8px 10px !important;
-    }
-    .vogue-nav a {
-        font-size: 0.72rem !important;
-    }
-    /* Impinge continutul paginii mai jos ca sa nu mai fie taiate titlurile */
-    main, .hero, .page-header {
-        padding-top: 170px !important;
-    }
-}
+            .header-spacer {
+                display: none;
+            }
+            .header-top {
+                padding: 12px 4%;
+            }
+            .vogue-logo {
+                font-size: 1.35rem;
+                letter-spacing: 2px;
+            }
+            .theme-btn {
+                width: auto;
+                padding: 6px 12px;
+                font-size: 0.72rem;
+            }
+            .vogue-nav {
+                gap: 8px 14px;
+                padding: 10px 4%;
+            }
+            .vogue-nav a {
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+            .contact-container {
+                margin: 30px auto 50px;
+            }
+            .contact-header h1 {
+                font-size: 2rem;
+            }
+            .contact-header p {
+                font-size: 0.95rem;
+            }
+            .contact-form-wrapper {
+                padding: 24px 20px;
+            }
+            .reviews-header h2 {
+                font-size: 1.7rem;
+            }
+            footer {
+                flex-direction: column;
+                gap: 14px;
+                text-align: center;
+                padding-bottom: 80px;
+            }
+            .social-links a {
+                margin: 0 10px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
     <header class="vogue-header">
         <div class="header-top">
             <div class="header-spacer"></div>
@@ -277,7 +544,6 @@
     </header>
 
     <main>
-        <!-- FORMULAR DE CONTACT -->
         <div class="contact-container">
             <div class="contact-header">
                 <h1>Contact & Asistenta Stil</h1>
@@ -321,7 +587,6 @@
             </div>
         </div>
 
-        <!-- SECTIUNEA DE REVIEWS CU UMERASE -->
         <section class="reviews-wrapper">
             <div class="reviews-header">
                 <h2>Parerea ta conteaza</h2>
@@ -329,7 +594,6 @@
             </div>
 
             <div class="hanger-rating" id="hanger-rating-container">
-                <!-- Iconite SVG cu umerase -->
                 <svg class="hanger-icon" data-value="1" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 3a2 2 0 0 0-2 2c0 1 2 2 2 3v1"></path><path d="M12 9L2 16h20L12 9z"></path>
                 </svg>
@@ -355,10 +619,8 @@
 
             <div class="reviews-list" id="reviews-list"></div>
         </section>
-
     </main>
 
-    <!-- WIDGETURI & FOOTER -->
     <div class="help-widget" id="btn-help">
         <button class="help-circle">?</button>
     </div>
@@ -377,9 +639,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPTURI JAVASCRIPT -->
     <script>
-        // Setare Dark Mode
         const themeBtn = document.getElementById("theme-toggle");
         if (localStorage.getItem("theme") === "dark") {
             document.body.classList.add("dark-mode");
@@ -396,7 +656,6 @@
             }
         });
 
-        // Trimitere formular contact
         function handleContactSubmit(event) {
             event.preventDefault();
             document.getElementById("successMsg").style.display = "block";
@@ -406,7 +665,6 @@
             }, 5000);
         }
 
-        // Functionalitate Review-uri cu umerase
         const hangers = document.querySelectorAll('.hanger-icon');
         let currentRating = 0;
 
@@ -436,19 +694,19 @@
         const nameInput = document.getElementById('reviewer-name');
         const textInput = document.getElementById('reviewer-text');
         const reviewsList = document.getElementById('reviews-list');
-        
+
         const hangerSvgTemplate = `<svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a2 2 0 0 0-2 2c0 1 2 2 2 3v1"></path><path d="M12 9L2 16h20L12 9z"></path></svg>`;
 
         function loadReviews() {
             reviewsList.innerHTML = '';
             const savedReviews = JSON.parse(localStorage.getItem('digitalClosetReviews')) || [];
-            
+
             savedReviews.forEach(review => {
                 const reviewCard = document.createElement('div');
                 reviewCard.classList.add('review-card');
-                
+
                 let hangersHtml = '';
-                for(let i=0; i<review.rating; i++) hangersHtml += hangerSvgTemplate;
+                for (let i = 0; i < review.rating; i++) hangersHtml += hangerSvgTemplate;
 
                 reviewCard.innerHTML = `
                     <div class="review-card-header">
@@ -475,13 +733,12 @@
 
             nameInput.value = ''; textInput.value = ''; currentRating = 0;
             hangers.forEach(h => h.classList.remove('selected'));
-            
+
             loadReviews();
         });
 
         loadReviews();
 
-        // Scroll
         document.getElementById("btn-up").addEventListener("click", () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         document.getElementById("btn-down").addEventListener("click", () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
         document.getElementById("btn-help").addEventListener("click", () => alert("Sfat: Completeaza formularul sau lasa-ne o recenzie pentru a intra in legatura cu echipa noastra editoriala!"));

@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Closet — Garderoba Mea & Carusel</title>
-    
+
     <!-- Fonturi Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=TAG_ID"></script>
     <script>
@@ -43,49 +43,51 @@
             background-color: var(--bg-page);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
-            padding-top: 135px;
             transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER (STICKY) --- */
         .vogue-header {
-            position: fixed; top: 0; left: 0; width: 100%;
+            position: sticky; top: 0; width: 100%;
             background-color: var(--header-bg); z-index: 1000;
             border-bottom: 1px solid var(--border-line);
         }
         .header-top {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 18px 5%; border-bottom: 1px solid var(--border-line);
+            padding: 16px 5%; border-bottom: 1px solid var(--border-line);
         }
         .header-spacer { width: 110px; }
         .vogue-logo {
             font-family: 'Playfair Display', serif;
-            font-size: 2.4rem; font-weight: 700; letter-spacing: 4px;
+            font-size: 2.3rem; font-weight: 700; letter-spacing: 4px;
             text-transform: uppercase; text-decoration: none; color: var(--text-main);
+            white-space: nowrap;
         }
         .theme-btn {
             width: 110px; padding: 8px 14px; border-radius: 30px;
             border: 1px solid var(--text-main); background: transparent;
             color: var(--text-main); font-size: 0.78rem; font-weight: 600;
             text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.2s;
+            white-space: nowrap;
         }
         .theme-btn:hover { background: var(--text-main); color: var(--bg-page); }
 
         .vogue-nav {
             display: flex; justify-content: center; align-items: center;
-            gap: 32px; padding: 14px 5%; list-style: none; flex-wrap: wrap;
+            gap: 28px; padding: 12px 5%; list-style: none; flex-wrap: wrap;
         }
         .vogue-nav a {
             text-decoration: none; color: var(--text-main); font-size: 0.78rem;
-            font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 1.8px;
             padding-bottom: 4px; transition: opacity 0.2s;
         }
         .vogue-nav a:hover { opacity: 0.6; }
         .vogue-nav a.active { border-bottom: 2px solid var(--text-main); }
 
-        /* --- CONTINUT GARDEROA --- */
+        /* --- CONTINUT GARDEROBA --- */
         .wardrobe-container {
-            max-width: 1400px; margin: 40px auto 80px; padding: 0 5%;
+            max-width: 1400px; margin: 50px auto 80px; padding: 0 5%;
         }
         .wardrobe-header {
             text-align: center; margin-bottom: 40px;
@@ -93,6 +95,7 @@
         .wardrobe-header h1 {
             font-family: 'Playfair Display', serif; font-size: 3rem;
             margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;
+            line-height: 1.15;
         }
         .wardrobe-header p {
             color: var(--text-muted); font-size: 1.05rem;
@@ -124,7 +127,7 @@
 
         /* GALERIE / CARUSEL GRID */
         .wardrobe-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px;
         }
         .wardrobe-item {
             background-color: var(--header-bg); border: 1px solid var(--border-line);
@@ -139,7 +142,7 @@
             height: 320px;
             overflow: hidden;
             position: relative;
-            background-color: var(--bg-page); /* Fundal curat daca poza e mai ingusta */
+            background-color: var(--bg-page);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -147,7 +150,7 @@
         .wardrobe-img-wrap img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain; /* Afiseaza poza intreaga in miniatura */
+            object-fit: contain;
             transition: transform 0.4s ease;
         }
         .wardrobe-item:hover .wardrobe-img-wrap img {
@@ -167,37 +170,51 @@
         /* LIGHTBOX & CARUSEL MODAL (NEXT / PREV) */
         .lightbox-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); z-index: 2000;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); z-index: 99999;
             display: none; align-items: center; justify-content: center; padding: 20px;
         }
         .lightbox-overlay.active { display: flex; }
         .lightbox-content {
             position: relative; max-width: 650px; width: 100%;
+            max-height: 90vh; overflow-y: auto;
             background: var(--bg-page); color: var(--text-main);
-            border-radius: 20px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            border-radius: 20px; box-shadow: 0 25px 60px rgba(0,0,0,0.6);
             text-align: center;
+        }
+       .lightbox-img-container {
+            width: 100%;
+            max-height: 70vh;
+            overflow: hidden;
+            background-color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .lightbox-content img {
             width: 100%;
-            max-height: 420px;
-            object-fit: contain; /* Pastreaza proportiile originale si nu taie nimic */
-            background-color: #111; /* Fundal inchis elegant in fereastra modala */
+            max-height: 70vh;
+            object-fit: contain;
             display: block;
             margin: 0 auto;
+            cursor: zoom-in;
+            transition: transform 0.12s ease-out;
+            transform-origin: center center;
         }
         .lightbox-body {
             padding: 25px;
         }
         .lightbox-close {
-            position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.6); color: #fff;
-            border: none; width: 38px; height: 38px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; z-index: 10;
+            position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.75); color: #fff;
+            border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem;
+            cursor: pointer; z-index: 100000;
+            display: flex; align-items: center; justify-content: center;
         }
         /* Butoanele Next / Previous */
         .lightbox-nav-btn {
             position: absolute; top: 45%; transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.6); color: #fff; border: none;
+            background: rgba(0, 0, 0, 0.65); color: #fff; border: none;
             width: 45px; height: 45px; border-radius: 50%; font-size: 1.3rem;
-            cursor: pointer; z-index: 10; transition: background 0.2s;
+            cursor: pointer; z-index: 100000; transition: background 0.2s;
             display: flex; align-items: center; justify-content: center;
         }
         .lightbox-nav-btn:hover { background: rgba(0, 0, 0, 0.9); }
@@ -205,11 +222,10 @@
         .lightbox-next { right: 15px; }
 
         /* WIDGETURI & FOOTER */
-        .help-widget { position: fixed; bottom: 25px; left: 25px; z-index: 1000; display: flex; align-items: center; gap: 10px; }
-        .help-circle { width: 44px; height: 44px; border-radius: 50%; background: #ffffff; color: #111111; border: 1px solid #ddd; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
-        .help-pill { background: #ffffff; color: #111111; padding: 10px 18px; border-radius: 25px; font-size: 0.85rem; font-weight: 600; box-shadow: 0 4px 14px rgba(0,0,0,0.12); cursor: pointer; }
-        .scroll-controls { position: fixed; bottom: 25px; right: 25px; z-index: 1000; display: flex; flex-direction: column; gap: 8px; }
-        .scroll-controls button { width: 42px; height: 42px; border-radius: 50%; background: #ffffff; color: #111111; border: 1px solid #ddd; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.12); transition: 0.2s; }
+        .help-widget { position: fixed; bottom: 20px; left: 20px; z-index: 900; display: flex; align-items: center; gap: 10px; }
+        .help-circle { width: 42px; height: 42px; border-radius: 50%; background: #ffffff; color: #111111; border: 1px solid #ddd; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+        .scroll-controls { position: fixed; bottom: 20px; right: 20px; z-index: 900; display: flex; flex-direction: column; gap: 8px; }
+        .scroll-controls button { width: 40px; height: 40px; border-radius: 50%; background: #ffffff; color: #111111; border: 1px solid #ddd; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.15); transition: 0.2s; }
         .scroll-controls button:hover { background: #111111; color: #ffffff; }
 
         footer {
@@ -217,27 +233,37 @@
             display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;
         }
         .social-links a { color: var(--text-main); text-decoration: none; margin-left: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.78rem; }
+
+        /* --- MOBIL --- */
         @media (max-width: 768px) {
-    /* Face header-ul mult mai compact pe telefon */
-    .header-spacer {
-        display: none !important;
-    }
-    .logo, .vogue-logo, header h1 {
-        font-size: 1.4rem !important;
-        letter-spacing: 2px !important;
-    }
-    .vogue-nav {
-        gap: 8px 14px !important;
-        padding: 8px 10px !important;
-    }
-    .vogue-nav a {
-        font-size: 0.72rem !important;
-    }
-    /* Impinge continutul paginii mai jos ca sa nu mai fie taiate titlurile */
-    main, .hero, .page-header {
-        padding-top: 170px !important;
-    }
-}
+            .header-spacer { display: none; }
+            .header-top { padding: 12px 4%; }
+            .vogue-logo { font-size: 1.35rem; letter-spacing: 2px; }
+            .theme-btn { width: auto; padding: 6px 12px; font-size: 0.72rem; }
+            .vogue-nav { gap: 8px 14px; padding: 10px 4%; }
+            .vogue-nav a { font-size: 0.7rem; letter-spacing: 1px; }
+
+            .wardrobe-container { margin: 30px auto 55px; }
+            .wardrobe-header { margin-bottom: 25px; }
+            .wardrobe-header h1 { font-size: 2rem; }
+            .wardrobe-header p { font-size: 0.95rem; }
+
+            .controls-bar { gap: 15px; margin-bottom: 25px; padding-bottom: 20px; }
+            .filter-buttons { justify-content: center; width: 100%; gap: 8px; }
+            .filter-btn { padding: 7px 14px; font-size: 0.72rem; }
+            .search-box { width: 100%; }
+
+            .wardrobe-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .wardrobe-img-wrap { height: 200px; }
+            .wardrobe-info { padding: 12px; }
+            .item-name { font-size: 1rem; }
+
+            .lightbox-content img { max-height: 55vh; }
+            .lightbox-nav-btn { width: 38px; height: 38px; font-size: 1.1rem; }
+
+            footer { flex-direction: column; gap: 14px; text-align: center; padding-bottom: 80px; }
+            .social-links a { margin: 0 10px; }
+        }
     </style>
 </head>
 <body>
@@ -295,7 +321,7 @@
                     </div>
                 </div>
 
-                 <div class="wardrobe-item" data-category="tops" onclick="openLightbox(1)">
+                <div class="wardrobe-item" data-category="tops" onclick="openLightbox(1)">
                     <div class="wardrobe-img-wrap">
                         <img src="camasa2,jpg.jpg" alt="Camasa Office">
                     </div>
@@ -304,8 +330,8 @@
                         <h3 class="item-name">Camasa Office</h3>
                     </div>
                 </div>
-               
-                    <div class="wardrobe-item" data-category="tops" onclick="openLightbox(2)">
+
+                <div class="wardrobe-item" data-category="tops" onclick="openLightbox(2)">
                     <div class="wardrobe-img-wrap">
                         <img src="pulovar.jpg" alt="Cozy">
                     </div>
@@ -314,8 +340,8 @@
                         <h3 class="item-name">Knitwear</h3>
                     </div>
                 </div>
-                
-                  <div class="wardrobe-item" data-category="tops" onclick="openLightbox(3)">
+
+                <div class="wardrobe-item" data-category="tops" onclick="openLightbox(3)">
                     <div class="wardrobe-img-wrap">
                         <img src="pulovar2.jpg" alt="Cozy">
                     </div>
@@ -324,8 +350,8 @@
                         <h3 class="item-name">Knitwear</h3>
                     </div>
                 </div>
-                
-                 <div class="wardrobe-item" data-category="tops" onclick="openLightbox(4)">
+
+                <div class="wardrobe-item" data-category="tops" onclick="openLightbox(4)">
                     <div class="wardrobe-img-wrap">
                         <img src="pulovar3.jpg" alt="Cozy">
                     </div>
@@ -334,8 +360,8 @@
                         <h3 class="item-name">Knitwear</h3>
                     </div>
                 </div>
-               
-                 <div class="wardrobe-item" data-category="bottoms" onclick="openLightbox(5)">
+
+                <div class="wardrobe-item" data-category="bottoms" onclick="openLightbox(5)">
                     <div class="wardrobe-img-wrap">
                         <img src="blugi.jpg" alt="Cozy">
                     </div>
@@ -385,7 +411,6 @@
                     </div>
                 </div>
 
-              
                 <div class="wardrobe-item" data-category="tops" onclick="openLightbox(10)">
                     <div class="wardrobe-img-wrap">
                         <img src="camasa.jpg" alt="Camasa Office">
@@ -445,7 +470,7 @@
                         <h3 class="item-name">Going Out Top</h3>
                     </div>
                 </div>
-               
+
                 <div class="wardrobe-item" data-category="outerwear" onclick="openLightbox(16)">
                     <div class="wardrobe-img-wrap">
                         <img src="coat.jpg" alt="Jacheta">
@@ -545,7 +570,7 @@
                         <h3 class="item-name">Combo Outfit</h3>
                     </div>
                 </div>
-                
+
                 <div class="wardrobe-item" data-category="shoes" onclick="openLightbox(26)">
                     <div class="wardrobe-img-wrap">
                         <img src="boots.jpg" alt="Ghete">
@@ -556,7 +581,7 @@
                     </div>
                 </div>
 
-                 <div class="wardrobe-item" data-category="shoes" onclick="openLightbox(27)">
+                <div class="wardrobe-item" data-category="shoes" onclick="openLightbox(27)">
                     <div class="wardrobe-img-wrap">
                         <img src="converse.jpg" alt="Adidasi">
                     </div>
@@ -565,7 +590,7 @@
                         <h3 class="item-name">Converse</h3>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </main>
@@ -576,8 +601,10 @@
             <button class="lightbox-close" onclick="closeLightbox()">✕</button>
             <button class="lightbox-nav-btn lightbox-prev" onclick="prevImage()">❮</button>
             <button class="lightbox-nav-btn lightbox-next" onclick="nextImage()">❯</button>
-            
-            <img id="lightboxImg" src="" alt="Imagine marita">
+
+            <div class="lightbox-img-container">
+                <img id="lightboxImg" src="" alt="Imagine marita">
+            </div>
             <div class="lightbox-body">
                 <span class="item-category" id="lightboxCategory"></span>
                 <h3 class="item-name" id="lightboxTitle"></h3>
@@ -624,48 +651,60 @@
         });
 
         // Datele articolelor din garderoba pentru caruselul Next/Previous
-const galleryItems = [
-    { src: "bluza_maro.jpg", cat: "Tricouri / Topuri", title: "Camasa Office" },
-    { src: "camasa2,jpg.jpg", cat: "Tricouri / Topuri", title: "Camasa Office" },
-    { src: "pulovar.jpg", cat: "Tricouri / Topuri", title: "Knitwear" },
-    { src: "pulovar2.jpg", cat: "Tricouri / Topuri", title: "Knitwear" },
-    { src: "pulovar3.jpg", cat: "Tricouri / Topuri", title: "Knitwear" },
-    { src: "blugi.jpg", cat: "Pantaloni / Fuste", title: "Blugi Largi" },
-    { src: "pantalonigri.jpg", cat: "Pantaloni / Fuste", title: "Pantaloni Office" },
-    { src: "denim_sclipici.jpg", cat: "Pantaloni / Fuste", title: "Blugi Largi" },
-    { src: "fusta_mini.jpg", cat: "Pantaloni / Fuste", title: "Fusta Mini" },
-    { src: "fusta_plaid.jpg", cat: "Pantaloni / Fuste", title: "Fusta Midi" },
-    { src: "camasa.jpg", cat: "Tricouri / Topuri", title: "Camasa Office" },
-    { src: "tricou1.jpg", cat: "Tricouri / Topuri", title: "Tricou" },
-    { src: "tricou2.jpg", cat: "Tricouri / Topuri", title: "Bluza Off The Shoulder" },
-    { src: "tricou3.jpg", cat: "Tricouri / Topuri", title: "Bluza Gri" },
-    { src: "tricou4.jpg", cat: "Tricouri / Topuri", title: "Bluza-Body" },
-    { src: "tricou5.jpg", cat: "Tricouri / Topuri", title: "Going Out Top" },
-    { src: "coat.jpg", cat: "Outerwear / Jachete", title: "Jacheta" },
-    { src: "jacheta_fur.jpg", cat: "Outerwear / Jachete", title: "Jacheta cu Blana" },
-    { src: "jacheta_maro.jpg", cat: "Outerwear / Jachete", title: "Jacheta" },
-    { src: "rochie1.jpg", cat: "Rochii", title: "Rochie Office" },
-    { src: "rochie2.jpg", cat: "Rochii", title: "Rochie Office" },
-    { src: "combinatie_haine_going_out.png", cat: "Combo", title: "Combo Outfit" },
-    { src: "combinatie_2_haine_going_out.png", cat: "Combo", title: "Combo Outfit" },
-    { src: "duminica.png", cat: "Combo", title: "Combo Outfit" },
-    { src: "duminica1.png", cat: "Combo", title: "Combo Outfit" },
-    { src: "outfit1_duminica.png", cat: "Combo", title: "Combo Outfit" },
-    { src: "boots.jpg", cat: "Incaltaminte", title: "Ghete" },
-    { src: "converse.jpg", cat: "Incaltaminte", title: "Converse" }
-    
-];
+        const galleryItems = [
+            { src: "bluza_maro.jpg", cat: "Tricouri / Topuri", title: "Camasa Office" },
+            { src: "camasa2,jpg.jpg", cat: "Tricouri / Topuri", title: "Camasa Office" },
+            { src: "pulovar.jpg", cat: "Tricouri / Topuri", title: "Knitwear" },
+            { src: "pulovar2.jpg", cat: "Tricouri / Topuri", title: "Knitwear" },
+            { src: "pulovar3.jpg", cat: "Tricouri / Topuri", title: "Knitwear" },
+            { src: "blugi.jpg", cat: "Pantaloni / Fuste", title: "Blugi Largi" },
+            { src: "pantalonigri.jpg", cat: "Pantaloni / Fuste", title: "Pantaloni Office" },
+            { src: "denim_sclipici.jpg", cat: "Pantaloni / Fuste", title: "Blugi Largi" },
+            { src: "fusta_mini.jpg", cat: "Pantaloni / Fuste", title: "Fusta Mini" },
+            { src: "fusta_plaid.jpg", cat: "Pantaloni / Fuste", title: "Fusta Midi" },
+            { src: "camasa.jpg", cat: "Tricouri / Topuri", title: "Camasa Office" },
+            { src: "tricou1.jpg", cat: "Tricouri / Topuri", title: "Tricou" },
+            { src: "tricou2.jpg", cat: "Tricouri / Topuri", title: "Bluza Off The Shoulder" },
+            { src: "tricou3.jpg", cat: "Tricouri / Topuri", title: "Bluza Gri" },
+            { src: "tricou4.jpg", cat: "Tricouri / Topuri", title: "Bluza-Body" },
+            { src: "tricou5.jpg", cat: "Tricouri / Topuri", title: "Going Out Top" },
+            { src: "coat.jpg", cat: "Outerwear / Jachete", title: "Jacheta" },
+            { src: "jacheta_fur.jpg", cat: "Outerwear / Jachete", title: "Jacheta cu Blana" },
+            { src: "jacheta_maro.jpg", cat: "Outerwear / Jachete", title: "Jacheta" },
+            { src: "rochie1.jpg", cat: "Rochii", title: "Rochie Office" },
+            { src: "rochie2.jpg", cat: "Rochii", title: "Rochie Office" },
+            { src: "combinatie_haine_going_out.png", cat: "Combo", title: "Combo Outfit" },
+            { src: "combinatie_2_haine_going_out.png", cat: "Combo", title: "Combo Outfit" },
+            { src: "duminica.png", cat: "Combo", title: "Combo Outfit" },
+            { src: "duminica1.png", cat: "Combo", title: "Combo Outfit" },
+            { src: "outfit1_duminica.png", cat: "Combo", title: "Combo Outfit" },
+            { src: "boots.jpg", cat: "Incaltaminte", title: "Ghete" },
+            { src: "converse.jpg", cat: "Incaltaminte", title: "Converse" }
+        ];
 
-let currentIndex = 0;
+        let currentIndex = 0;
 
         function openLightbox(index) {
             currentIndex = index;
             updateLightboxContent();
             document.getElementById("lightboxOverlay").classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+       const lightboxImg = document.getElementById("lightboxImg");
+        let zoomLevel = 1;
+
+        function resetZoom() {
+            zoomLevel = 1;
+            lightboxImg.style.transform = "scale(1)";
+            lightboxImg.style.transformOrigin = "center center";
+            lightboxImg.style.cursor = "zoom-in";
         }
 
         function closeLightbox() {
             document.getElementById("lightboxOverlay").classList.remove("active");
+            resetZoom();
+            document.body.style.overflow = "";
         }
 
         function closeLightboxOutside(e) {
@@ -675,14 +714,44 @@ let currentIndex = 0;
         }
 
         function nextImage() {
+            resetZoom();
             currentIndex = (currentIndex + 1) % galleryItems.length;
             updateLightboxContent();
         }
 
         function prevImage() {
+            resetZoom();
             currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
             updateLightboxContent();
         }
+
+        lightboxImg.addEventListener("wheel", function (e) {
+            e.preventDefault();
+            const rect = this.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+            zoomLevel += e.deltaY < 0 ? 0.25 : -0.25;
+            zoomLevel = Math.min(Math.max(1, zoomLevel), 3.5);
+
+            this.style.transformOrigin = `${x}% ${y}%`;
+            this.style.transform = `scale(${zoomLevel})`;
+            this.style.cursor = zoomLevel > 1 ? "zoom-out" : "zoom-in";
+        }, { passive: false });
+
+        lightboxImg.addEventListener("click", function (e) {
+            if (zoomLevel > 1) {
+                resetZoom();
+            } else {
+                const rect = this.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                zoomLevel = 2.2;
+                this.style.transformOrigin = `${x}% ${y}%`;
+                this.style.transform = `scale(${zoomLevel})`;
+                this.style.cursor = "zoom-out";
+            }
+        });
 
         function updateLightboxContent() {
             const item = galleryItems[currentIndex];
