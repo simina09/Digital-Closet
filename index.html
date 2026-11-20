@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Closet</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=TAG_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'TAG_ID');
+    </script>
+
+    <style>
+        :root {
+            --bg-page: #ffffff;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --header-bg: #ffffff;
+            --border-line: #e5e5e5;
+            --accent-neon: #d4ff00;
+        }
+
+        body.dark-mode {
+            --bg-page: #121212;
+            --text-main: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --header-bg: #181818;
+            --border-line: #2e2e2e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            padding-top: 135px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* --- HEADER --- */
+        .vogue-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background-color: var(--header-bg); z-index: 1000;
+            border-bottom: 1px solid var(--border-line);
+        }
+        .header-top {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 5%; border-bottom: 1px solid var(--border-line);
+        }
+        .header-spacer { width: 110px; }
+        .vogue-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem; font-weight: 700; letter-spacing: 4px;
+            text-transform: uppercase; text-decoration: none; color: var(--text-main);
+        }
+        .theme-btn {
+            width: 110px; padding: 8px 14px; border-radius: 30px;
+            border: 1px solid var(--text-main); background: transparent;
+            color: var(--text-main); font-size: 0.78rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.2s;
+        }
+        .theme-btn:hover { background: var(--text-main); color: var(--bg-page); }
+
+        .vogue-nav {
+            display: flex; justify-content: center; align-items: center;
+            gap: 42px; padding: 14px 5%; list-style: none; flex-wrap: wrap;
+        }
+        .vogue-nav a {
+            text-decoration: none; color: var(--text-main); font-size: 0.8rem;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            padding-bottom: 4px; transition: opacity 0.2s;
+        }
+        .vogue-nav a:hover { opacity: 0.6; }
+        .vogue-nav a.active { border-bottom: 2px solid var(--text-main); }
+        
+        #open-wishlist-btn { color: #e8a5b0; }
+
+        /* --- HERO --- */
+        .whering-hero {
+            position: relative; width: 94%; max-width: 1500px;
+            height: calc(100vh - 165px); min-height: 500px; margin: 15px auto;
+            border-radius: 28px; overflow: hidden; display: flex;
+            align-items: center; justify-content: center; text-align: center;
+            background-color: #1c1c1c; box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        .whering-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('shirt.jpg');
+            background-size: cover; background-position: center;
+            filter: blur(2px) brightness(0.62); transform: scale(1.04); z-index: 1;
+        }
+        .whering-content { position: relative; z-index: 2; color: #ffffff; padding: 0 20px; max-width: 950px; }
+        .whering-content h1 {
+            font-family: 'Playfair Display', serif; font-size: 5rem;
+            font-weight: 400; line-height: 1.05; margin-bottom: 22px; letter-spacing: -1px;
+        }
+        .whering-content p { font-size: 1.25rem; font-weight: 400; margin-bottom: 36px; opacity: 0.95; }
+        .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-lime {
+            background-color: var(--accent-neon); color: #111111; text-decoration: none;
+            padding: 15px 34px; border-radius: 40px; font-weight: 700; font-size: 0.95rem; transition: transform 0.2s;
+        }
+        .btn-lime:hover { transform: scale(1.05); }
+        .btn-glass {
+            background-color: rgba(255, 255, 255, 0.18); backdrop-filter: blur(8px);
+            color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.5); text-decoration: none;
+            padding: 15px 34px; border-radius: 40px; font-weight: 600; font-size: 0.95rem; transition: background 0.2s;
+        }
+        .btn-glass:hover { background-color: rgba(255, 255, 255, 0.3); }
+
+        /* --- FASHION TICKER --- */
+        .fashion-ticker {
+            width: 100%; background-color: #fce4ec; color: #111111;
+            padding: 14px 0; overflow: hidden; white-space: nowrap;
+            border-top: 1px solid var(--border-line); border-bottom: 1px solid var(--border-line);
+            display: flex; margin-top: 30px;
+        }
+        body.dark-mode .fashion-ticker { background-color: #2a161a; color: #e8a5b0; }
+        .ticker-content {
+            display: flex; font-family: 'Inter', sans-serif; font-weight: 700;
+            font-size: 0.9rem; letter-spacing: 3px; animation: scrollTicker 18s linear infinite;
+        }
+        .ticker-content span { padding-right: 20px; }
+        @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- DREAM CLOSET / WISHLIST --- */
+        .dream-closet-section { max-width: 1400px; margin: 80px auto; padding: 0 5%; }
+        .dream-header { text-align: center; margin-bottom: 40px; }
+        .dream-header h2 {
+            font-family: 'Playfair Display', serif; font-size: 2.2rem;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;
+        }
+        .dream-header p { color: var(--text-muted); font-size: 1rem; }
+        .dream-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .dream-card { position: relative; border-radius: 16px; overflow: hidden; cursor: pointer; aspect-ratio: 3/4; }
+        
+        .dream-card img {
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: transform 0.5s ease, opacity 0.4s ease;
+        }
+        
+        .dream-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(250, 240, 242, 0.4); backdrop-filter: blur(5px);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        body.dark-mode .dream-overlay { background: rgba(20, 10, 12, 0.5); }
+        .dream-card:hover img { transform: scale(1.05); }
+        .dream-card:hover .dream-overlay { opacity: 1; }
+        
+        .dream-btn {
+            background: #e8a5b0; color: #fff; border: none; padding: 12px 24px;
+            border-radius: 30px; font-family: 'Inter', sans-serif; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;
+            cursor: pointer; transform: translateY(20px);
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 10px 20px rgba(232, 165, 176, 0.4);
+        }
+        .dream-card:hover .dream-btn { transform: translateY(0); }
+        .dream-btn:hover { background: #d68f9a; }
+
+        /* --- RUNWAY & REVISTA --- */
+        .magazine-section { max-width: 1400px; margin: 80px auto 40px; padding: 0 5%; }
+        .section-title-bar {
+            border-top: 2px solid var(--text-main); border-bottom: 1px solid var(--border-line);
+            padding: 15px 0; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .section-title-bar h2 { font-family: 'Playfair Display', serif; font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; }
+        .section-title-bar span { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 600; }
+        .magazine-grid { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 35px; align-items: start; }
+        @media (max-width: 1100px) { .magazine-grid { grid-template-columns: 1fr; } }
+        .mag-card { border-bottom: 1px solid var(--border-line); padding-bottom: 30px; margin-bottom: 30px; cursor: pointer; transition: opacity 0.2s; }
+        .mag-card:hover { opacity: 0.8; }
+        .mag-img { width: 100%; height: 380px; object-fit: cover; object-position: top; margin-bottom: 15px; border-radius: 4px; }
+        .mag-tag { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 8px; display: block; }
+        .mag-headline { font-family: 'Playfair Display', serif; font-size: 1.5rem; line-height: 1.25; margin-bottom: 12px; font-weight: 600; }
+        .mag-author { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: var(--text-muted); }
+
+        /* --- MODAL ZOOM --- */
+        .zoom-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(10px);
+            z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+        .zoom-overlay.active { display: flex; }
+        .zoom-card-content {
+            background: var(--bg-page); color: var(--text-main); max-width: 700px; width: 100%;
+            border-radius: 20px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+            position: relative; animation: scaleUp 0.3s ease;
+        }
+        @keyframes scaleUp { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .zoom-card-content img { width: 100%; max-height: 70vh; height: auto; object-fit: contain; }
+        .zoom-card-body { padding: 30px; text-align: center; }
+        .zoom-close-btn {
+            position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.6); color: #fff;
+            border: none; width: 38px; height: 38px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; z-index: 10;
+        }
+
+        /* --- BRANDURI --- */
+        .brands-banner {
+            background-color: var(--header-bg); border-top: 1px solid var(--border-line);
+            border-bottom: 1px solid var(--border-line); padding: 60px 5%; margin-top: 60px; text-align: center;
+        }
+        .brands-banner h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 10px; letter-spacing: 1px; }
+        .brands-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; max-width: 1300px; margin: 40px auto 0; text-align: left; }
+        .brand-box { padding: 30px; border: 1px solid var(--border-line); border-radius: 12px; background: var(--bg-page); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .brand-box:hover { transform: translateY(-6px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .brand-box h4 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 6px; letter-spacing: 1px; }
+        .brand-box span { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 12px; }
+        .brand-box p { font-size: 0.88rem; line-height: 1.6; color: var(--text-muted); }
+
+        /* --- SERTAR LATERAL WISHLIST (OFF-CANVAS) --- */
+        .sidebar-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(3px);
+            z-index: 3000; display: none; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .sidebar-overlay.active { display: block; opacity: 1; }
+        
+        .wishlist-sidebar {
+            position: fixed; top: 0; right: -400px; width: 380px; max-width: 90vw; height: 100vh;
+            background: var(--bg-page); color: var(--text-main);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1); z-index: 3001;
+            transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            display: flex; flex-direction: column; overflow-y: auto; padding: 30px;
+        }
+        .wishlist-sidebar.active { right: 0; }
+        
+        .sidebar-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border-line); padding-bottom: 20px; margin-bottom: 25px;
+        }
+        .sidebar-header h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; }
+        .close-sidebar-btn { background: none; border: none; font-size: 1.5rem; color: var(--text-main); cursor: pointer; }
+        
+        .wishlist-items-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+        }
+        .wishlist-item-card { border-radius: 10px; overflow: hidden; position: relative; }
+        .wishlist-item-card img { width: 100%; height: 200px; object-fit: cover; display: block; }
+        .wishlist-empty-msg { text-align: center; color: var(--text-muted); margin-top: 50px; font-size: 0.95rem; grid-column: span 2; }
+
+        /* --- CHATBOT & WIDGETURI --- */
+        .chat-widget-btn {
+            position: fixed; bottom: 25px; right: 85px; z-index: 1000; width: 48px; height: 48px; border-radius: 50%;
+            background: var(--text-main); color: var(--bg-page); border: 1px solid var(--border-line); font-size: 1.2rem;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,0.15); transition: transform 0.3s ease;
+        }
+        .chat-widget-btn:hover { transform: scale(1.08); }
+
+        .chat-box-container {
+            position: fixed; bottom: 85px; right: 25px; z-index: 2000; width: 340px; max-width: 90vw; height: 450px;
+            background: var(--bg-page); color: var(--text-main); border: 1px solid var(--border-line); border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25); display: none; flex-direction: column; overflow: hidden;
+        }
+        .chat-box-container.active { display: flex; }
+        .chat-header {
+            padding: 15px; background: var(--header-bg); border-bottom: 1px solid var(--border-line);
+            display: flex; justify-content: space-between; align-items: center; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem;
+        }
+        .chat-close { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); }
+        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem; }
+        .message { padding: 10px 14px; border-radius: 12px; max-width: 80%; line-height: 1.4; }
+        .message.bot { background: var(--header-bg); align-self: flex-start; border: 1px solid var(--border-line); }
+        .message.user { background: var(--text-main); color: var(--bg-page); align-self: flex-end; }
+        .chat-input-area { padding: 12px; border-top: 1px solid var(--border-line); display: flex; gap: 8px; background: var(--bg-page); }
+        .chat-input-area input { flex: 1; padding: 8px 12px; border-radius: 20px; border: 1px solid var(--border-line); background: var(--bg-page); color: var(--text-main); font-size: 0.85rem; outline: none; }
+        .chat-input-area button { padding: 8px 16px; border-radius: 20px; border: none; background: var(--text-main); color: var(--bg-page); font-weight: 600; cursor: pointer; font-size: 0.82rem; text-transform: uppercase; }
+
+        .help-widget { position: fixed; bottom: 25px; left: 25px; z-index: 1000; display: flex; align-items: center; gap: 10px; }
+        .help-circle { width: 44px; height: 44px; border-radius: 50%; background: #ffffff; color: #111111; border: 1px solid #ddd; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+        .scroll-controls { position: fixed; bottom: 25px; right: 25px; z-index: 1000; display: flex; flex-direction: column; gap: 8px; }
+        .scroll-controls button { width: 42px; height: 42px; border-radius: 50%; background: #ffffff; color: #111111; border: 1px solid #ddd; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.12); transition: 0.2s; }
+        .scroll-controls button:hover { background: #111111; color: #ffffff; }
+
+        footer { padding: 30px 5%; border-top: 1px solid var(--border-line); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+        .social-links a { color: var(--text-main); text-decoration: none; margin-left: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.78rem; }
+        @media (max-width: 850px) { body { padding-top: 165px; } .vogue-logo { font-size: 1.6rem; } .header-spacer { display: none; } .vogue-nav { gap: 15px; flex-wrap: wrap; } .whering-content h1 { font-size: 3rem; } footer { flex-direction: column; gap: 12px; text-align: center; } }
+    </style>
+</head>
+<body>
+
+    <header class="vogue-header">
+        <div class="header-top">
+            <div class="header-spacer"></div>
+            <a href="index.html" class="vogue-logo">DIGITAL CLOSET</a>
+            <button id="theme-toggle" class="theme-btn">🌙 Dark</button>
+        </div>
+        <nav>
+            <ul class="vogue-nav">
+                <li><a href="index.html" class="active">Acasa</a></li>
+                <li><a href="wardrobe.html">Garderoba Mea</a></li>
+                <li><a href="planner.html">Planificator</a></li>
+                <li><a href="capsule.html">Capsule Wardrobe</a></li>
+                <li><a href="guide.html">Ghid de Stil</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#" id="open-wishlist-btn">Wishlist 🛍️</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="whering-hero">
+            <div class="whering-bg"></div>
+            <div class="whering-content">
+                <h1>Love your wardrobe</h1>
+                <p>Organizeaza-ti toate piesele vestimentare si planifica-ti tinutele zilnice fara efort.</p>
+                <div class="hero-btns">
+                    <a href="wardrobe.html" class="btn-lime">Deschide Garderoba</a>
+                    <a href="planner.html" class="btn-glass">Planifica un Outfit</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="fashion-ticker">
+            <div class="ticker-content">
+                <span>✦ COQUETTE CORE ✦ MINIMALIST ✦ Y2K ✦ BALLETCORE ✦ VINTAGE ✦ GRUNGE ✦ CHIC ✦</span>
+                <span>✦ COQUETTE CORE ✦ MINIMALIST ✦ Y2K ✦ BALLETCORE ✦ VINTAGE ✦ GRUNGE ✦ CHIC ✦</span>
+                <span>✦ COQUETTE CORE ✦ MINIMALIST ✦ Y2K ✦ BALLETCORE ✦ VINTAGE ✦ GRUNGE ✦ CHIC ✦</span>
+            </div>
+        </div>
+
+        <section class="dream-closet-section">
+            <div class="dream-header">
+                <h2>Dream Closet</h2>
+                <span>Lista de dorinte pentru sezonul acesta. Inspira-te pentru urmatoarele achizitii.</span>
+            </div>
+            <div class="dream-grid">
+                <div class="dream-card">
+                    <img src="cercei.jpg" alt="Cercei">
+                    <div class="dream-overlay">
+                        <button class="dream-btn wishlist-btn" data-item="cercei-accesorii">Adauga in Wishlist 🎀</button>
+                    </div>
+                </div>
+                <div class="dream-card">
+                    <img src="lant.jpg" alt="Lant">
+                    <div class="dream-overlay">
+                        <button class="dream-btn wishlist-btn" data-item="lant-accesorii">Adauga in Wishlist 🎀</button>
+                    </div>
+                </div>
+                <div class="dream-card">
+                    <img src="pantofi_platforme.jpg" alt="Pantofi Toc">
+                    <div class="dream-overlay">
+                        <button class="dream-btn wishlist-btn" data-item="pantofi">Adauga in Wishlist 🎀</button>
+                    </div>
+                </div>
+                <div class="dream-card">
+                    <img src="pantofi_toc2.jpg" alt="Pantofi Toc">
+                    <div class="dream-overlay">
+                        <button class="dream-btn wishlist-btn" data-item="pantofi">Adauga in Wishlist 🎀</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="magazine-section">
+            <div class="section-title-bar">
+                <h2>The Runway Edit</h2>
+                <span>Da click pe un look pentru a-l vedea marit pe mijlocul ecranului</span>
+            </div>
+            <div class="magazine-grid">
+                <div class="mag-card" onclick="openZoom('yasmin_index2.jpg', 'Models & Backstage', 'Getting Booked: Ce spun modelele de top despre agitatia din culisele Saptamanii Modei', 'By Hannah Jackson')">
+                    <img src="yasmin_index2.jpg" alt="Models Backstage" class="mag-img">
+                    <span class="mag-tag">Models & Backstage</span>
+                    <h3 class="mag-headline">Getting Booked: Ce spun modelele de top despre agitatia din culisele Saptamanii Modei</h3>
+                    <p class="mag-author">By Hannah Jackson</p>
+                </div>
+                <div class="mag-card" onclick="openZoom('oversize.jpg', 'The Runway Edit', 'De la pantaloni wide-leg la sacouri masculine, descopera secretul unui look relaxat, dar perfect structurat. Regula de aur a noului sezon este echilibrul volumelor.', 'The New York Times')">
+                    <img src="oversize.jpg" alt="Manual de styling" class="mag-img" style="height: 480px;">
+                    <span class="mag-tag">Runway Direct</span>
+                    <h3 class="mag-headline" style="font-size: 1.8rem;">Inovatia croielilor supradimensionate: Colectiile care au redefinit sezonul curent</h3>
+                    <p class="mag-author">By Editorial Team</p>
+                </div>
+                <div class="mag-card" onclick="openZoom('streetstyle.jpg', 'Street Style', 'De la Paris la New York, descopera cum editorii si modelele off-duty transforma strazile in adevarate podiumuri. O selectie cu cele mai captivante look-uri ale sezonului.', 'Vogue')">
+                    <img src="streetstyle.jpg" alt="Moda strazii: Cele mai bune tinute din capitalele modei" class="mag-img">
+                    <span class="mag-tag">Celebrity Style</span>
+                    <h3 class="mag-headline">Ce poarta celebritatile cand camerele sunt oprite: Street style autentic</h3>
+                    <p class="mag-author">By Irene Kim</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="brands-banner">
+            <h3>Perceptia publica si ecoul cultural al celor mai influente reviste si case de moda din lume</h3>
+            <div class="brands-grid">
+                <div class="brand-box">
+                    <span>Vogue Global</span>
+                    <h4>„Piese esentiale de toamna”</h4>
+                    <p>Podiumul este locul unde un designer da viata unei colectii, dar, de multe ori, adevarata actiune are loc in showroom-ul brandului in zilele de dupa... Aceste vizite sunt, in secret, momentul preferat al saptamanii pentru orice editor de la Vogue Shopping.</p>
+                </div>
+                <div class="brand-box">
+                    <span>Cosmopolitan Trends</span>
+                    <h4>„Stil de zi cu zi”</h4>
+                    <p>Vei fi cea mai chic fata cand iesi dupa treburi prin oras. Brandul viral de loungewear a facut echipa cu brandul iconic de denim pentru a crea piese care vor fi mereu in rotatie in garderoba mea sezonul acesta.</p>
+                </div>
+                <div class="brand-box">
+                    <span>Steve Madden</span>
+                    <h4>„Ador o reusita pentru garderoba care imi tine si portofelul fericit!”</h4>
+                    <p>Este ceva aparte la atmosfera aceasta atat de cozy, la dorinta de a revedea Gilmore Girls, la lumanarile de sezon si, bineinteles, la tot ce tine de pumpkin spice. Ador tendintele actuale in materie de cizme de toamna.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="zoom-overlay" id="zoomOverlay" onclick="closeZoom(event)">
+        <div class="zoom-card-content">
+            <button class="zoom-close-btn" onclick="closeZoomDirect()">✕</button>
+            <img id="zoomImg" src="" alt="Look marit">
+            <div class="zoom-card-body">
+                <span class="mag-tag" id="zoomTag"></span>
+                <h3 class="mag-headline" id="zoomTitle" style="font-size: 1.4rem; margin-bottom: 8px;"></h3>
+                <p class="mag-author" id="zoomAuthor"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HTML SERTAR WISHLIST (NOU) -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <div class="wishlist-sidebar" id="wishlist-sidebar">
+        <div class="sidebar-header">
+            <h2>My Wishlist 🛍️</h2>
+            <button class="close-sidebar-btn" id="close-sidebar-btn">&times;</button>
+        </div>
+        <div class="wishlist-items-grid" id="wishlist-items-grid">
+            <!-- Pozele salvate vor aparea aici automat din JavaScript -->
+            <div class="wishlist-empty-msg">Inca nu ai salvat nicio piesa. Foloseste butoanele din Dream Closet!</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Digital Closet & Outfit Planner.</p>
+        <div class="social-links">
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+            <a href="#">TikTok</a>
+            <a href="#">Facebook</a>
+        </div>
+    </footer>
+
+    <div class="help-widget" id="btn-help"><button class="help-circle">?</button></div>
+    <button class="chat-widget-btn" id="chat-toggle-btn" title="Asistent Virtual">💬</button>
+
+    <div class="chat-box-container" id="chat-box">
+        <div class="chat-header">
+            <span>Digital Assistant</span>
+            <button class="chat-close" id="chat-close-btn">&times;</button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot">Buna! Sunt asistentul tau virtual pentru Digital Closet. Cu ce te pot ajuta astazi?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Scrie un mesaj...">
+            <button id="chat-send">Trimite</button>
+        </div>
+    </div>
+    
+    <div class="scroll-controls">
+        <button id="btn-up" title="Mergi Sus">↑</button>
+        <button id="btn-down" title="Mergi Jos">↓</button>
+    </div>
+
+    <script>
+        const themeBtn = document.getElementById("theme-toggle");
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+            themeBtn.innerText = "☀️ Light";
+        }
+        themeBtn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeBtn.innerText = "☀️ Light";
+            } else {
+                localStorage.setItem("theme", "light");
+                themeBtn.innerText = "🌙 Dark";
+            }
+        });
+
+        function openZoom(imgSrc, tag, title, author) {
+            document.getElementById("zoomImg").src = imgSrc;
+            document.getElementById("zoomTag").innerText = tag;
+            document.getElementById("zoomTitle").innerText = title;
+            document.getElementById("zoomAuthor").innerText = author;
+            document.getElementById("zoomOverlay").classList.add("active");
+        }
+        function closeZoomDirect() { document.getElementById("zoomOverlay").classList.remove("active"); }
+        function closeZoom(e) { if (e.target.id === "zoomOverlay") { document.getElementById("zoomOverlay").classList.remove("active"); } }
+        document.getElementById("btn-up").addEventListener("click", () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        document.getElementById("btn-down").addEventListener("click", () => { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); });
+        document.getElementById("btn-help").addEventListener("click", () => { alert("Sfat: Cauta piesele preferate in Dream Closet si salveaza-le in Wishlist!"); });
+
+        // --- SCRIPT WISHLIST INFINIT & SIDEBAR (NOU) ---
+        const wishlistPool = [
+            { id: "pantofi", src: "adidas.jpg", alt: "Pantofi" },
+            { id: "geanta", src: "geanta.jpg", alt: "Geanta" },
+            { id: "geanta", src: "geanta2.jpg", alt: "Geanta" },
+            { id: "top", src: "top.jpg", alt: "Maiou" },
+            { id: "pantofi-toc", src: "pantofi_toc.jpg", alt: "Pantofi Toc" },
+            { id: "bottom", src: "fusta_denim.jpg", alt: "Fusta Denim" },
+            { id: "pantofi", src: "adidas2.jpg", alt: "Pantofi" },
+            { id: "pantofi", src: "cizme.jpg", alt: "Cizme" },
+        ];
+        
+        let poolIndex = 0;
+        const wishlistBtns = document.querySelectorAll('.wishlist-btn');
+        
+        // Logica de deschidere a sertarului lateral
+        const openSidebarBtn = document.getElementById('open-wishlist-btn');
+        const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+        const sidebar = document.getElementById('wishlist-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const gridContainer = document.getElementById('wishlist-items-grid');
+
+        function renderSidebarItems() {
+            gridContainer.innerHTML = '';
+            const currentSaved = JSON.parse(localStorage.getItem('digitalClosetWishlistObj')) || [];
+            
+            if (currentSaved.length === 0) {
+                gridContainer.innerHTML = '<div class="wishlist-empty-msg">Inca nu ai salvat nicio piesa. Foloseste butoanele din Dream Closet!</div>';
+                return;
+            }
+
+            currentSaved.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'wishlist-item-card';
+                card.innerHTML = `<img src="${item.src}" alt="${item.alt}" title="${item.alt}">`;
+                gridContainer.appendChild(card);
+            });
+        }
+
+        openSidebarBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            renderSidebarItems();
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        closeSidebarBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Logica butoanelor din cardurile de pe pagina
+        wishlistBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const card = btn.closest('.dream-card');
+                const img = card.querySelector('img');
+                const itemId = btn.getAttribute('data-item');
+
+                // Salvam un obiect complet cu link-ul pozei ca sa il afisam in sertar
+                const currentSaved = JSON.parse(localStorage.getItem('digitalClosetWishlistObj')) || [];
+                const alreadyExists = currentSaved.some(item => item.id === itemId);
+
+                if (!alreadyExists) {
+                    currentSaved.push({ id: itemId, src: img.src, alt: img.alt || "Wishlist Item" });
+                    localStorage.setItem('digitalClosetWishlistObj', JSON.stringify(currentSaved));
+                }
+
+                btn.innerHTML = 'Salvata in Wishlist 🛍️';
+                btn.style.background = '#111111';
+
+                setTimeout(() => {
+                    img.style.opacity = '0'; 
+                    setTimeout(() => {
+                        const nextItem = wishlistPool[poolIndex];
+                        poolIndex = (poolIndex + 1) % wishlistPool.length; 
+
+                        img.src = nextItem.src;
+                        img.alt = nextItem.alt;
+                        btn.setAttribute('data-item', nextItem.id);
+                        
+                        btn.innerHTML = 'Adauga in Wishlist 🎀';
+                        btn.style.background = '';
+                        img.style.opacity = '1';
+                    }, 400); 
+                }, 900); 
+            });
+        });
+
+        // Chatbot 
+        const chatToggleBtn = document.getElementById('chat-toggle-btn');
+        const chatBox = document.getElementById('chat-box');
+        const chatCloseBtn = document.getElementById('chat-close-btn');
+        const chatSend = document.getElementById('chat-send');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+
+        chatToggleBtn.addEventListener('click', () => { chatBox.classList.toggle('active'); });
+        chatCloseBtn.addEventListener('click', () => { chatBox.classList.remove('active'); });
+
+        function handleUserMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            // Afisam mesajul tau
+            const userMsg = document.createElement('div');
+            userMsg.classList.add('message', 'user');
+            userMsg.innerText = text;
+            chatMessages.appendChild(userMsg);
+            chatInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Mesaj de incarcare care simuleaza ca AI-ul gandeste
+            const loadingMsg = document.createElement('div');
+            loadingMsg.classList.add('message', 'bot');
+            loadingMsg.innerText = 'Caut inspiratie in dulapul digital...';
+            chatMessages.appendChild(loadingMsg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Functia care proceseaza cuvintele (fara nevoie de internet sau chei API)
+            setTimeout(() => {
+                const lowerText = text.toLowerCase();
+                let aiText = "Stilul inseamna sa te exprimi fara sa vorbesti. Exploreaza aplicatia pentru a-ti gasi estetica perfecta!";
+                
+                if (lowerText.includes('ploua') || lowerText.includes('rece') || lowerText.includes('toamna') || lowerText.includes('iarna')) {
+                    aiText = "Pentru vremea de afara, recomand un trench coat clasic, un pulover din casmir pe gat si botine de piele. Layering-ul este secretul!";
+                } else if (lowerText.includes('roz') || lowerText.includes('culoare') || lowerText.includes('asort')) {
+                    aiText = "Rozul merge perfect cu nuante neutre (alb, bej, gri deschis) pentru un look elegant, sau cu rosu inchis pentru un contrast curajos tip 'color-blocking'.";
+                } else if (lowerText.includes('seara') || lowerText.includes('eleganta') || lowerText.includes('club') || lowerText.includes('petrecere')) {
+                    aiText = "Alege o rochie slip-dress din matase, accesorii aurii minimaliste si un sacou supradimensionat pe umeri. Chic si fara efort!";
+                } else if (lowerText.includes('ajutor') || lowerText.includes('ce pot face')) {
+                    aiText = "Sunt asistentul tau de stil! Foloseste 'Garderoba Mea' pentru a-ti vedea hainele si 'Planificatorul' pentru a-ti construi tinutele saptamanale.";
+                } else if (lowerText.includes('buna') || lowerText.includes('salut')) {
+                    aiText = "Buna! Sunt aici sa te ajut cu idei de outfit-uri si asortari. Cu ce piesa vrei sa incepem?";
+                }
+
+                loadingMsg.innerText = aiText;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1200); // Intarziere realista de 1.2 secunde
+        }
+        chatSend.addEventListener('click', handleUserMessage);
+        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleUserMessage(); });
+    </script>
+</body>
+</html>

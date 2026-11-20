@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Closet – Contact & Asistenta Stil</title>
+    
+    <!-- Fonturi Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=TAG_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'TAG_ID');
+    </script>
+
+    <style>
+        :root {
+            --bg-page: #ffffff;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --header-bg: #ffffff;
+            --border-line: #e5e5e5;
+            --accent-neon: #d4ff00;
+        }
+
+        body.dark-mode {
+            --bg-page: #121212;
+            --text-main: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --header-bg: #181818;
+            --border-line: #2e2e2e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            /* Pune poza pe tot ecranul, cu un strat subtil intunecat peste ea ca sa poti citi textul */
+            background-image: linear-gradient(rgba(17, 17, 17, 0.7), rgba(17, 17, 17, 0.8)), url('index1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            
+            color: #f5f5f5; /* Text alb pe fundal imagine */
+            font-family: 'Inter', sans-serif;
+            padding-top: 135px;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        .vogue-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background-color: var(--header-bg); z-index: 1000;
+            border-bottom: 1px solid var(--border-line);
+        }
+        .header-top {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 5%; border-bottom: 1px solid var(--border-line);
+        }
+        .header-spacer { width: 110px; }
+        .vogue-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem; font-weight: 700; letter-spacing: 4px;
+            text-transform: uppercase; text-decoration: none; color: var(--text-main);
+        }
+        .theme-btn {
+            width: 110px; padding: 8px 14px; border-radius: 30px;
+            border: 1px solid var(--text-main); background: transparent;
+            color: var(--text-main); font-size: 0.78rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.2s;
+        }
+        .theme-btn:hover { background: var(--text-main); color: var(--bg-page); }
+
+        .vogue-nav {
+            display: flex; justify-content: center; align-items: center;
+            gap: 32px; padding: 14px 5%; list-style: none; flex-wrap: wrap;
+        }
+        .vogue-nav a {
+            text-decoration: none; color: var(--text-main); font-size: 0.78rem;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            padding-bottom: 4px; transition: opacity 0.2s;
+        }
+        .vogue-nav a:hover { opacity: 0.6; }
+        .vogue-nav a.active { border-bottom: 2px solid var(--text-main); }
+
+        /* --- CONTINUT CONTACT --- */
+        .contact-container {
+            max-width: 1000px; margin: 40px auto 80px; padding: 0 5%;
+        }
+        .contact-header {
+            text-align: center; margin-bottom: 50px;
+        }
+        .contact-header h1 {
+            font-family: 'Playfair Display', serif; font-size: 3rem;
+            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .contact-header p {
+            color: #d1d1d1; font-size: 1.05rem; /* Ajustat pentru vizibilitate pe fundal */
+        }
+
+        .contact-form-wrapper {
+            background: rgba(30, 30, 30, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block; font-size: 0.8rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;
+        }
+        .form-control {
+            width: 100%; padding: 14px 18px; border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05); color: #f5f5f5;
+            font-size: 0.95rem; outline: none; transition: 0.2s;
+        }
+        .form-control::placeholder { color: #aaaaaa; }
+        .form-control:focus { border-color: #ffffff; }
+        /* Fix pentru meniul dropdown (select) in ambele moduri */
+        select option {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+        }
+        
+        textarea.form-control { resize: vertical; height: 150px; }
+        
+        .submit-btn {
+            width: 100%; padding: 16px; background-color: #ffffff; color: #111111;
+            border: none; border-radius: 30px; font-size: 0.85rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: opacity 0.2s;
+        }
+        .submit-btn:hover { opacity: 0.85; }
+        
+        .success-msg {
+            display: none; margin-top: 20px; padding: 15px;
+            background-color: var(--accent-neon); color: #111111;
+            border-radius: 10px; text-align: center; font-weight: 600; font-size: 0.9rem;
+        }
+
+        /* --- SECTIUNE REVIEWS CU UMERASE --- */
+        .reviews-wrapper {
+            max-width: 800px; margin: 80px auto; padding: 0 5%;
+        }
+        .reviews-header {
+            text-align: center; margin-bottom: 25px;
+        }
+        .reviews-header h2 {
+            font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 10px;
+        }
+        .reviews-header p { color: #d1d1d1; }
+        
+        /* Umerasele */
+        .hanger-rating {
+            display: flex; justify-content: center; gap: 12px; margin-bottom: 20px;
+        }
+        .hanger-icon {
+            width: 38px; height: 38px;
+            stroke: rgba(255,255,255,0.5); fill: transparent;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .hanger-icon:hover { transform: translateY(-3px); }
+        
+        /* Culoarea roz-prafuit cand sunt selectate */
+        .hanger-icon.hovered, .hanger-icon.selected {
+            stroke: #e8a5b0; fill: rgba(232, 165, 176, 0.2); 
+        }
+
+        .review-form {
+            display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px;
+        }
+        .review-form input, .review-form textarea {
+            width: 100%; padding: 12px 15px; border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px; background: rgba(30, 30, 30, 0.4); backdrop-filter: blur(10px);
+            color: #f5f5f5; font-family: 'Inter', sans-serif; outline: none;
+        }
+        .review-form input::placeholder, .review-form textarea::placeholder { color: #aaaaaa; }
+        
+        .review-form button {
+            padding: 12px 25px; background: #ffffff; color: #111111;
+            border: none; border-radius: 30px; font-weight: 600; text-transform: uppercase;
+            cursor: pointer; align-self: center; transition: 0.3s;
+        }
+        .review-form button:hover { background: #e8a5b0; color: #ffffff; }
+
+        .reviews-list { display: flex; flex-direction: column; gap: 15px; }
+        .review-card {
+            padding: 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+            background: rgba(30, 30, 30, 0.6); backdrop-filter: blur(10px);
+        }
+        .review-card-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+        }
+        .review-name { font-weight: bold; font-size: 1.05rem; }
+        .review-hangers-display { display: flex; gap: 4px; }
+        .review-hangers-display svg {
+            width: 20px; height: 20px; stroke: #e8a5b0; fill: rgba(232, 165, 176, 0.2);
+        }
+        .review-text-display { color: #d1d1d1; font-size: 0.95rem; line-height: 1.5; }
+
+        /* WIDGETURI & FOOTER */
+        .help-widget { position: fixed; bottom: 25px; left: 25px; z-index: 1000; }
+        .help-circle {
+            width: 44px; height: 44px; border-radius: 50%; background: #ffffff;
+            color: #111111; border: 1px solid #ddd; font-size: 1.1rem;
+            font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+        }
+        .scroll-controls { position: fixed; bottom: 25px; right: 25px; z-index: 1000; display: flex; flex-direction: column; gap: 8px; }
+        .scroll-controls button {
+            width: 42px; height: 42px; border-radius: 50%; background: #ffffff;
+            color: #111111; border: 1px solid #ddd; font-size: 1rem; font-weight: bold;
+            cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.12); transition: 0.2s;
+        }
+        .scroll-controls button:hover { background: #111111; color: #ffffff; }
+
+        footer {
+            padding: 30px 5%; border-top: 1px solid rgba(255,255,255,0.1);
+            background: rgba(17,17,17,0.8); backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;
+        }
+        .social-links a {
+            color: #f5f5f5; text-decoration: none; margin-left: 20px;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="vogue-header">
+        <div class="header-top">
+            <div class="header-spacer"></div>
+            <a href="index.html" class="vogue-logo">DIGITAL CLOSET</a>
+            <button id="theme-toggle" class="theme-btn">🌙 Dark</button>
+        </div>
+        <nav>
+            <ul class="vogue-nav">
+                <li><a href="index.html">Acasa</a></li>
+                <li><a href="wardrobe.html">Garderoba Mea</a></li>
+                <li><a href="planner.html">Planificator</a></li>
+                <li><a href="capsule.html">Capsule Wardrobe</a></li>
+                <li><a href="guide.html">Ghid de Stil</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- FORMULAR DE CONTACT -->
+        <div class="contact-container">
+            <div class="contact-header">
+                <h1>Contact & Asistenta Stil</h1>
+                <p>Ai intrebari despre organizarea garderobei sau doresti o consultanta personalizata? Trimite-ne un mesaj.</p>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Nume Complet</label>
+                        <input type="text" id="name" class="form-control" placeholder="Introdu numele tau" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Adresa de Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="nume@exemplu.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Numar de Telefon</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="Ex: 0712345678" pattern="^07[0-9]{8}$" title="Te rugam sa introduci un numar valid de 10 cifre care incepe cu 07" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subiect / Interes</label>
+                        <select id="subject" class="form-control">
+                            <option>Consultanta Capsule Wardrobe</option>
+                            <option>Suport Tehnic Aplicatie</option>
+                            <option>Colaborare Editoriala</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Mesajul Tau</label>
+                        <textarea id="message" class="form-control" placeholder="Scrie mesajul tau aici..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Trimite Mesajul</button>
+                    <div class="success-msg" id="successMsg">✨ Mesajul tau a fost trimis cu succes! Iti vom raspunde in cel mai scurt timp.</div>
+                </form>
+            </div>
+        </div>
+
+        <!-- SECTIUNEA DE REVIEWS CU UMERASE -->
+        <section class="reviews-wrapper">
+            <div class="reviews-header">
+                <h2>Parerea ta conteaza</h2>
+                <p>Lasa-ne o recenzie despre experienta ta pe Digital Closet.</p>
+            </div>
+
+            <div class="hanger-rating" id="hanger-rating-container">
+                <!-- Iconite SVG cu umerase -->
+                <svg class="hanger-icon" data-value="1" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a2 2 0 0 0-2 2c0 1 2 2 2 3v1"></path><path d="M12 9L2 16h20L12 9z"></path>
+                </svg>
+                <svg class="hanger-icon" data-value="2" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a2 2 0 0 0-2 2c0 1 2 2 2 3v1"></path><path d="M12 9L2 16h20L12 9z"></path>
+                </svg>
+                <svg class="hanger-icon" data-value="3" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a2 2 0 0 0-2 2c0 1 2 2 2 3v1"></path><path d="M12 9L2 16h20L12 9z"></path>
+                </svg>
+                <svg class="hanger-icon" data-value="4" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a2 2 0 0 0-2 2c0 1 2 2 2 3v1"></path><path d="M12 9L2 16h20L12 9z"></path>
+                </svg>
+                <svg class="hanger-icon" data-value="5" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a2 2 0 0 0-2 2c0 1 2 2 2 3v1"></path><path d="M12 9L2 16h20L12 9z"></path>
+                </svg>
+            </div>
+
+            <div class="review-form">
+                <input type="text" id="reviewer-name" placeholder="Numele tau" required>
+                <textarea id="reviewer-text" rows="4" placeholder="Cum ti se pare aplicatia noastra?" required></textarea>
+                <button id="submit-review-btn">Trimite Recenzie</button>
+            </div>
+
+            <div class="reviews-list" id="reviews-list"></div>
+        </section>
+
+    </main>
+
+    <!-- WIDGETURI & FOOTER -->
+    <div class="help-widget" id="btn-help">
+        <button class="help-circle">?</button>
+    </div>
+    <div class="scroll-controls">
+        <button id="btn-up" title="Mergi Sus">↑</button>
+        <button id="btn-down" title="Mergi Jos">↓</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Digital Closet & Outfit Planner.</p>
+        <div class="social-links">
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+            <a href="#">TikTok</a>
+            <a href="#">Facebook</a>
+        </div>
+    </footer>
+
+    <!-- SCRIPTURI JAVASCRIPT -->
+    <script>
+        // Setare Dark Mode
+        const themeBtn = document.getElementById("theme-toggle");
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+            themeBtn.innerText = "☀️ Light";
+        }
+        themeBtn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeBtn.innerText = "☀️ Light";
+            } else {
+                localStorage.setItem("theme", "light");
+                themeBtn.innerText = "🌙 Dark";
+            }
+        });
+
+        // Trimitere formular contact
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            document.getElementById("successMsg").style.display = "block";
+            document.getElementById("contactForm").reset();
+            setTimeout(() => {
+                document.getElementById("successMsg").style.display = "none";
+            }, 5000);
+        }
+
+        // Functionalitate Review-uri cu umerase
+        const hangers = document.querySelectorAll('.hanger-icon');
+        let currentRating = 0;
+
+        hangers.forEach(hanger => {
+            hanger.addEventListener('mouseover', () => {
+                const val = parseInt(hanger.getAttribute('data-value'));
+                hangers.forEach(h => {
+                    if (parseInt(h.getAttribute('data-value')) <= val) h.classList.add('hovered');
+                    else h.classList.remove('hovered');
+                });
+            });
+
+            hanger.addEventListener('mouseout', () => {
+                hangers.forEach(h => h.classList.remove('hovered'));
+            });
+
+            hanger.addEventListener('click', () => {
+                currentRating = parseInt(hanger.getAttribute('data-value'));
+                hangers.forEach(h => {
+                    if (parseInt(h.getAttribute('data-value')) <= currentRating) h.classList.add('selected');
+                    else h.classList.remove('selected');
+                });
+            });
+        });
+
+        const submitBtn = document.getElementById('submit-review-btn');
+        const nameInput = document.getElementById('reviewer-name');
+        const textInput = document.getElementById('reviewer-text');
+        const reviewsList = document.getElementById('reviews-list');
+        
+        const hangerSvgTemplate = `<svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a2 2 0 0 0-2 2c0 1 2 2 2 3v1"></path><path d="M12 9L2 16h20L12 9z"></path></svg>`;
+
+        function loadReviews() {
+            reviewsList.innerHTML = '';
+            const savedReviews = JSON.parse(localStorage.getItem('digitalClosetReviews')) || [];
+            
+            savedReviews.forEach(review => {
+                const reviewCard = document.createElement('div');
+                reviewCard.classList.add('review-card');
+                
+                let hangersHtml = '';
+                for(let i=0; i<review.rating; i++) hangersHtml += hangerSvgTemplate;
+
+                reviewCard.innerHTML = `
+                    <div class="review-card-header">
+                        <span class="review-name">${review.name}</span>
+                        <span class="review-hangers-display">${hangersHtml}</span>
+                    </div>
+                    <div class="review-text-display">${review.text}</div>
+                `;
+                reviewsList.prepend(reviewCard);
+            });
+        }
+
+        submitBtn.addEventListener('click', () => {
+            const name = nameInput.value.trim();
+            const text = textInput.value.trim();
+
+            if (currentRating === 0) { alert('Te rugam sa selectezi o nota (umerase)!'); return; }
+            if (!name || !text) { alert('Te rugam sa completezi numele si mesajul!'); return; }
+
+            const newReview = { name: name, text: text, rating: currentRating };
+            const savedReviews = JSON.parse(localStorage.getItem('digitalClosetReviews')) || [];
+            savedReviews.push(newReview);
+            localStorage.setItem('digitalClosetReviews', JSON.stringify(savedReviews));
+
+            nameInput.value = ''; textInput.value = ''; currentRating = 0;
+            hangers.forEach(h => h.classList.remove('selected'));
+            
+            loadReviews();
+        });
+
+        loadReviews();
+
+        // Scroll
+        document.getElementById("btn-up").addEventListener("click", () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        document.getElementById("btn-down").addEventListener("click", () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
+        document.getElementById("btn-help").addEventListener("click", () => alert("Sfat: Completeaza formularul sau lasa-ne o recenzie pentru a intra in legatura cu echipa noastra editoriala!"));
+    </script>
+</body>
+</html>

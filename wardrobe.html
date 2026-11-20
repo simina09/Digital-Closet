@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Closet — Garderoba Mea & Carusel</title>
+    
+    <!-- Fonturi Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=TAG_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'TAG_ID');
+    </script>
+
+    <style>
+        :root {
+            --bg-page: #ffffff;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --header-bg: #ffffff;
+            --border-line: #e5e5e5;
+            --accent-neon: #d4ff00;
+        }
+
+        body.dark-mode {
+            --bg-page: #121212;
+            --text-main: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --header-bg: #181818;
+            --border-line: #2e2e2e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            padding-top: 135px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* --- HEADER --- */
+        .vogue-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background-color: var(--header-bg); z-index: 1000;
+            border-bottom: 1px solid var(--border-line);
+        }
+        .header-top {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 5%; border-bottom: 1px solid var(--border-line);
+        }
+        .header-spacer { width: 110px; }
+        .vogue-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem; font-weight: 700; letter-spacing: 4px;
+            text-transform: uppercase; text-decoration: none; color: var(--text-main);
+        }
+        .theme-btn {
+            width: 110px; padding: 8px 14px; border-radius: 30px;
+            border: 1px solid var(--text-main); background: transparent;
+            color: var(--text-main); font-size: 0.78rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.2s;
+        }
+        .theme-btn:hover { background: var(--text-main); color: var(--bg-page); }
+
+        .vogue-nav {
+            display: flex; justify-content: center; align-items: center;
+            gap: 32px; padding: 14px 5%; list-style: none; flex-wrap: wrap;
+        }
+        .vogue-nav a {
+            text-decoration: none; color: var(--text-main); font-size: 0.78rem;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            padding-bottom: 4px; transition: opacity 0.2s;
+        }
+        .vogue-nav a:hover { opacity: 0.6; }
+        .vogue-nav a.active { border-bottom: 2px solid var(--text-main); }
+
+        /* --- CONTINUT GARDEROA --- */
+        .wardrobe-container {
+            max-width: 1400px; margin: 40px auto 80px; padding: 0 5%;
+        }
+        .wardrobe-header {
+            text-align: center; margin-bottom: 40px;
+        }
+        .wardrobe-header h1 {
+            font-family: 'Playfair Display', serif; font-size: 3rem;
+            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .wardrobe-header p {
+            color: var(--text-muted); font-size: 1.05rem;
+        }
+
+        /* FILTRE SI CAUTARE */
+        .controls-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 20px; margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-line); padding-bottom: 25px;
+        }
+        .filter-buttons {
+            display: flex; gap: 10px; flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 9px 20px; border-radius: 25px; border: 1px solid var(--border-line);
+            background: transparent; color: var(--text-main); font-weight: 600;
+            font-size: 0.82rem; cursor: pointer; transition: 0.2s; text-transform: uppercase;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--text-main); color: var(--bg-page); border-color: var(--text-main);
+        }
+        .search-box {
+            padding: 10px 18px; border-radius: 25px; border: 1px solid var(--border-line);
+            background: var(--header-bg); color: var(--text-main); font-size: 0.9rem;
+            width: 260px; outline: none; transition: 0.2s;
+        }
+        .search-box:focus { border-color: var(--text-main); }
+
+        /* GALERIE / CARUSEL GRID */
+        .wardrobe-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;
+        }
+        .wardrobe-item {
+            background-color: var(--header-bg); border: 1px solid var(--border-line);
+            border-radius: 16px; overflow: hidden; cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .wardrobe-item:hover {
+            transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+        .wardrobe-img-wrap {
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--bg-page); /* Fundal curat daca poza e mai ingusta */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wardrobe-img-wrap img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Afiseaza poza intreaga in miniatura */
+            transition: transform 0.4s ease;
+        }
+        .wardrobe-item:hover .wardrobe-img-wrap img {
+            transform: scale(1.04);
+        }
+        .wardrobe-info {
+            padding: 20px; text-align: left;
+        }
+        .item-category {
+            font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 6px; display: block;
+        }
+        .item-name {
+            font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 600;
+        }
+
+        /* LIGHTBOX & CARUSEL MODAL (NEXT / PREV) */
+        .lightbox-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); z-index: 2000;
+            display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-content {
+            position: relative; max-width: 650px; width: 100%;
+            background: var(--bg-page); color: var(--text-main);
+            border-radius: 20px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+        .lightbox-content img {
+            width: 100%;
+            max-height: 420px;
+            object-fit: contain; /* Pastreaza proportiile originale si nu taie nimic */
+            background-color: #111; /* Fundal inchis elegant in fereastra modala */
+            display: block;
+            margin: 0 auto;
+        }
+        .lightbox-body {
+            padding: 25px;
+        }
+        .lightbox-close {
+            position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.6); color: #fff;
+            border: none; width: 38px; height: 38px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; z-index: 10;
+        }
+        /* Butoanele Next / Previous */
+        .lightbox-nav-btn {
+            position: absolute; top: 45%; transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6); color: #fff; border: none;
+            width: 45px; height: 45px; border-radius: 50%; font-size: 1.3rem;
+            cursor: pointer; z-index: 10; transition: background 0.2s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .lightbox-nav-btn:hover { background: rgba(0, 0, 0, 0.9); }
+        .lightbox-prev { left: 15px; }
+        .lightbox-next { right: 15px; }
+
+        /* WIDGETURI & FOOTER */
+        .help-widget { position: fixed; bottom: 25px; left: 25px; z-index: 1000; display: flex; align-items: center; gap: 10px; }
+        .help-circle { width: 44px; height: 44px; border-radius: 50%; background: #ffffff; color: #111111; border: 1px solid #ddd; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+        .help-pill { background: #ffffff; color: #111111; padding: 10px 18px; border-radius: 25px; font-size: 0.85rem; font-weight: 600; box-shadow: 0 4px 14px rgba(0,0,0,0.12); cursor: pointer; }
+        .scroll-controls { position: fixed; bottom: 25px; right: 25px; z-index: 1000; display: flex; flex-direction: column; gap: 8px; }
+        .scroll-controls button { width: 42px; height: 42px; border-radius: 50%; background: #ffffff; color: #111111; border: 1px solid #ddd; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.12); transition: 0.2s; }
+        .scroll-controls button:hover { background: #111111; color: #ffffff; }
+
+        footer {
+            padding: 30px 5%; border-top: 1px solid var(--border-line);
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;
+        }
+        .social-links a { color: var(--text-main); text-decoration: none; margin-left: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.78rem; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="vogue-header">
+        <div class="header-top">
+            <div class="header-spacer"></div>
+            <a href="index.html" class="vogue-logo">DIGITAL CLOSET</a>
+            <button id="theme-toggle" class="theme-btn">🌙 Dark</button>
+        </div>
+        <nav>
+            <ul class="vogue-nav">
+                <li><a href="index.html">Acasa</a></li>
+                <li><a href="wardrobe.html" class="active">Garderoba Mea</a></li>
+                <li><a href="planner.html">Planificator</a></li>
+                <li><a href="capsule.html">Capsule Wardrobe</a></li>
+                <li><a href="guide.html">Ghid de Stil</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="wardrobe-container">
+            <div class="wardrobe-header">
+                <h1>Garderoba Mea Digitala</h1>
+                <p>Exploreaza piesele tale, filtreaza pe categorii sau da click pe oricare articol pentru galeria interactiva Next / Previous.</p>
+            </div>
+
+            <!-- FILTRE SI CAUTARE -->
+            <div class="controls-bar">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterItems('all')">Toate</button>
+                    <button class="filter-btn" onclick="filterItems('tops')">Tricouri / Topuri</button>
+                    <button class="filter-btn" onclick="filterItems('bottoms')">Pantaloni / Fuste</button>
+                    <button class="filter-btn" onclick="filterItems('dresses')">Rochii</button>
+                    <button class="filter-btn" onclick="filterItems('outerwear')">Outerwear / Jachete</button>
+                    <button class="filter-btn" onclick="filterItems('shoes')">Incaltaminte</button>
+                </div>
+                <input type="text" id="searchBar" class="search-box" placeholder="Cauta in garderoba..." onkeyup="searchItems()">
+            </div>
+
+            <!-- GALERIA DE ARTICOLE -->
+            <div class="wardrobe-grid" id="wardrobeGrid">
+                
+                <!-- Articol 1 -->
+                <div class="wardrobe-item" data-category="tops" onclick="openLightbox(0)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="bluza_maro.jpg" alt="Camasa Office">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Tricouri / Topuri</span>
+                        <h3 class="item-name">Camasa Office</h3>
+                    </div>
+                </div>
+
+                 <div class="wardrobe-item" data-category="tops" onclick="openLightbox(1)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="camasa2,jpg.jpg" alt="Camasa Office">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Tricouri / Topuri</span>
+                        <h3 class="item-name">Camasa Office</h3>
+                    </div>
+                </div>
+               
+                    <div class="wardrobe-item" data-category="tops" onclick="openLightbox(2)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="pulovar.jpg" alt="Cozy">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Tricouri / Topuri</span>
+                        <h3 class="item-name">Knitwear</h3>
+                    </div>
+                </div>
+                
+                  <div class="wardrobe-item" data-category="tops" onclick="openLightbox(3)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="pulovar2.jpg" alt="Cozy">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Tricouri / Topuri</span>
+                        <h3 class="item-name">Knitwear</h3>
+                    </div>
+                </div>
+                
+                 <div class="wardrobe-item" data-category="tops" onclick="openLightbox(4)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="pulovar3.jpg" alt="Cozy">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Tricouri / Topuri</span>
+                        <h3 class="item-name">Knitwear</h3>
+                    </div>
+                </div>
+               
+                 <div class="wardrobe-item" data-category="bottoms" onclick="openLightbox(5)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="blugi.jpg" alt="Cozy">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Pantaloni / Fuste</span>
+                        <h3 class="item-name">Blugi Largi</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="bottoms" onclick="openLightbox(6)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="pantalonigri.jpg" alt="Cozy">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Pantaloni / Fuste</span>
+                        <h3 class="item-name">Pantaloni Office</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="bottoms" onclick="openLightbox(7)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="denim_sclipici.jpg" alt="Cozy">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Pantaloni / Fuste</span>
+                        <h3 class="item-name">Blugi Largi</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="bottoms" onclick="openLightbox(8)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="fusta_mini.jpg" alt="Cozy">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Pantaloni / Fuste</span>
+                        <h3 class="item-name">Fusta Mini</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="bottoms" onclick="openLightbox(9)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="fusta_plaid.jpg" alt="Cozy">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Pantaloni / Fuste</span>
+                        <h3 class="item-name">Fusta Midi</h3>
+                    </div>
+                </div>
+
+              
+                <div class="wardrobe-item" data-category="tops" onclick="openLightbox(10)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="camasa.jpg" alt="Camasa Office">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Tricouri / Topuri</span>
+                        <h3 class="item-name">Camasa Office</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="tops" onclick="openLightbox(11)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="tricou1.jpg" alt="Tricou">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Tricouri / Topuri</span>
+                        <h3 class="item-name">Tricou</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="tops" onclick="openLightbox(12)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="tricou2.jpg" alt="Bluza">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Tricouri / Topuri</span>
+                        <h3 class="item-name">Bluza Off The Shoulder</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="tops" onclick="openLightbox(13)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="tricou3.jpg" alt="Bluza">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Tricouri / Topuri</span>
+                        <h3 class="item-name">Bluza Gri</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="tops" onclick="openLightbox(14)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="tricou4.jpg" alt="Body">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Tricouri / Topuri</span>
+                        <h3 class="item-name">Bluza-Body</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="tops" onclick="openLightbox(15)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="tricou5.jpg" alt="Top">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Tricouri / Topuri</span>
+                        <h3 class="item-name">Going Out Top</h3>
+                    </div>
+                </div>
+               
+                <div class="wardrobe-item" data-category="outerwear" onclick="openLightbox(16)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="coat.jpg" alt="Jacheta">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Outerwear / Jachete</span>
+                        <h3 class="item-name">Jacheta</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="outerwear" onclick="openLightbox(17)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="jacheta_fur.jpg" alt="Jacheta">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Outerwear / Jachete</span>
+                        <h3 class="item-name">Jacheta cu Blana</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="outerwear" onclick="openLightbox(18)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="jacheta_maro.jpg" alt="Jacheta">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Outerwear / Jachete</span>
+                        <h3 class="item-name">Jacheta</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="dresses" onclick="openLightbox(19)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="rochie1.jpg" alt="Rochie">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Rochii</span>
+                        <h3 class="item-name">Rochie Office</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="dresses" onclick="openLightbox(20)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="rochie2.jpg" alt="Rochie">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Rochii</span>
+                        <h3 class="item-name">Rochie Office</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="combo" onclick="openLightbox(21)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="combinatie_haine_going_out.png" alt="Combo">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Combo</span>
+                        <h3 class="item-name">Combo Outfit</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="combo" onclick="openLightbox(22)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="combinatie_2_haine_going_out.png" alt="Combo">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Combo</span>
+                        <h3 class="item-name">Combo Outfit</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="combo" onclick="openLightbox(23)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="duminica.png" alt="Combo">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Combo</span>
+                        <h3 class="item-name">Combo Outfit</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="combo" onclick="openLightbox(24)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="duminica1.png" alt="Combo">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Combo</span>
+                        <h3 class="item-name">Combo Outfit</h3>
+                    </div>
+                </div>
+
+                <div class="wardrobe-item" data-category="combo" onclick="openLightbox(25)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="outfit1_duminica.png" alt="Combo">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Combo</span>
+                        <h3 class="item-name">Combo Outfit</h3>
+                    </div>
+                </div>
+                
+                <div class="wardrobe-item" data-category="shoes" onclick="openLightbox(26)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="boots.jpg" alt="Ghete">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Incaltaminte</span>
+                        <h3 class="item-name">Ghete</h3>
+                    </div>
+                </div>
+
+                 <div class="wardrobe-item" data-category="shoes" onclick="openLightbox(27)">
+                    <div class="wardrobe-img-wrap">
+                        <img src="converse.jpg" alt="Adidasi">
+                    </div>
+                    <div class="wardrobe-info">
+                        <span class="item-category">Incaltaminte</span>
+                        <h3 class="item-name">Converse</h3>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </main>
+
+    <!-- LIGHTBOX / CARUSEL MODAL -->
+    <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightboxOutside(event)">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <button class="lightbox-nav-btn lightbox-prev" onclick="prevImage()">❮</button>
+            <button class="lightbox-nav-btn lightbox-next" onclick="nextImage()">❯</button>
+            
+            <img id="lightboxImg" src="" alt="Imagine marita">
+            <div class="lightbox-body">
+                <span class="item-category" id="lightboxCategory"></span>
+                <h3 class="item-name" id="lightboxTitle"></h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- WIDGETURI & FOOTER -->
+    <div class="help-widget" id="btn-help">
+        <button class="help-circle">?</button>
+    </div>
+    <div class="scroll-controls">
+        <button id="btn-up" title="Mergi Sus">↑</button>
+        <button id="btn-down" title="Mergi Jos">↓</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Digital Closet & Outfit Planner.</p>
+        <div class="social-links">
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+            <a href="#">TikTok</a>
+            <a href="#">Facebook</a>
+        </div>
+    </footer>
+
+    <!-- SCRIPT LOGICA CARUSEL & FILTRE -->
+    <script>
+        // Dark/Light Mode
+        const themeBtn = document.getElementById("theme-toggle");
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+            themeBtn.innerText = "☀️ Light";
+        }
+        themeBtn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeBtn.innerText = "☀️ Light";
+            } else {
+                localStorage.setItem("theme", "light");
+                themeBtn.innerText = "🌙 Dark";
+            }
+        });
+
+        // Datele articolelor din garderoba pentru caruselul Next/Previous
+const galleryItems = [
+    { src: "bluza_maro.jpg", cat: "Tricouri / Topuri", title: "Camasa Office" },
+    { src: "camasa2,jpg.jpg", cat: "Tricouri / Topuri", title: "Camasa Office" },
+    { src: "pulovar.jpg", cat: "Tricouri / Topuri", title: "Knitwear" },
+    { src: "pulovar2.jpg", cat: "Tricouri / Topuri", title: "Knitwear" },
+    { src: "pulovar3.jpg", cat: "Tricouri / Topuri", title: "Knitwear" },
+    { src: "blugi.jpg", cat: "Pantaloni / Fuste", title: "Blugi Largi" },
+    { src: "pantalonigri.jpg", cat: "Pantaloni / Fuste", title: "Pantaloni Office" },
+    { src: "denim_sclipici.jpg", cat: "Pantaloni / Fuste", title: "Blugi Largi" },
+    { src: "fusta_mini.jpg", cat: "Pantaloni / Fuste", title: "Fusta Mini" },
+    { src: "fusta_plaid.jpg", cat: "Pantaloni / Fuste", title: "Fusta Midi" },
+    { src: "camasa.jpg", cat: "Tricouri / Topuri", title: "Camasa Office" },
+    { src: "tricou1.jpg", cat: "Tricouri / Topuri", title: "Tricou" },
+    { src: "tricou2.jpg", cat: "Tricouri / Topuri", title: "Bluza Off The Shoulder" },
+    { src: "tricou3.jpg", cat: "Tricouri / Topuri", title: "Bluza Gri" },
+    { src: "tricou4.jpg", cat: "Tricouri / Topuri", title: "Bluza-Body" },
+    { src: "tricou5.jpg", cat: "Tricouri / Topuri", title: "Going Out Top" },
+    { src: "coat.jpg", cat: "Outerwear / Jachete", title: "Jacheta" },
+    { src: "jacheta_fur.jpg", cat: "Outerwear / Jachete", title: "Jacheta cu Blana" },
+    { src: "jacheta_maro.jpg", cat: "Outerwear / Jachete", title: "Jacheta" },
+    { src: "rochie1.jpg", cat: "Rochii", title: "Rochie Office" },
+    { src: "rochie2.jpg", cat: "Rochii", title: "Rochie Office" },
+    { src: "combinatie_haine_going_out.png", cat: "Combo", title: "Combo Outfit" },
+    { src: "combinatie_2_haine_going_out.png", cat: "Combo", title: "Combo Outfit" },
+    { src: "duminica.png", cat: "Combo", title: "Combo Outfit" },
+    { src: "duminica1.png", cat: "Combo", title: "Combo Outfit" },
+    { src: "outfit1_duminica.png", cat: "Combo", title: "Combo Outfit" },
+    { src: "boots.jpg", cat: "Incaltaminte", title: "Ghete" },
+    { src: "converse.jpg", cat: "Incaltaminte", title: "Converse" }
+    
+];
+
+let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightboxContent();
+            document.getElementById("lightboxOverlay").classList.add("active");
+        }
+
+        function closeLightbox() {
+            document.getElementById("lightboxOverlay").classList.remove("active");
+        }
+
+        function closeLightboxOutside(e) {
+            if (e.target.id === "lightboxOverlay") {
+                closeLightbox();
+            }
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % galleryItems.length;
+            updateLightboxContent();
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+            updateLightboxContent();
+        }
+
+        function updateLightboxContent() {
+            const item = galleryItems[currentIndex];
+            document.getElementById("lightboxImg").src = item.src;
+            document.getElementById("lightboxCategory").innerText = item.cat;
+            document.getElementById("lightboxTitle").innerText = item.title;
+        }
+
+        // Filtrare dupa categorii
+        function filterItems(category) {
+            const btns = document.querySelectorAll(".filter-btn");
+            btns.forEach(b => b.classList.remove("active"));
+            event.target.classList.add("active");
+
+            const items = document.querySelectorAll(".wardrobe-item");
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+
+        // Cautare dinamica
+        function searchItems() {
+            const query = document.getElementById("searchBar").value.toLowerCase();
+            const items = document.querySelectorAll(".wardrobe-item");
+            items.forEach(item => {
+                const title = item.querySelector(".item-name").innerText.toLowerCase();
+                const cat = item.querySelector(".item-category").innerText.toLowerCase();
+                if (title.includes(query) || cat.includes(query)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+
+        // Scroll & Help
+        document.getElementById("btn-up").addEventListener("click", () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        document.getElementById("btn-down").addEventListener("click", () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
+        document.getElementById("btn-help").addEventListener("click", () => alert("Sfat: Da click pe oricare piesa din garderoba pentru a deschide galeria marita si foloseste butoanele Next/Previous!"));
+    </script>
+</body>
+</html>

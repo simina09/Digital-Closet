@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Closet — Ghid de Stil & Celebrity</title>
+    
+    <!-- Fonturi Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=TAG_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'TAG_ID');
+    </script>
+
+    <style>
+        :root {
+            --bg-page: #ffffff;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --header-bg: #ffffff;
+            --border-line: #e5e5e5;
+            --card-bg: #f9f9f9;
+        }
+
+        body.dark-mode {
+            --bg-page: #121212;
+            --text-main: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --header-bg: #181818;
+            --border-line: #2e2e2e;
+            --card-bg: #1a1a1a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+       body {
+            /* Pune poza pe tot ecranul, cu un strat subtil intunecat peste ea ca sa poti citi textul */
+            background-image: linear-gradient(rgba(17, 17, 17, 0.7), rgba(17, 17, 17, 0.8)), url('backgorundPic.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            
+            color: #f5f5f5; /* Text alb */
+            font-family: 'Inter', sans-serif;
+            padding-top: 135px;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        .vogue-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background-color: var(--header-bg); z-index: 1000;
+            border-bottom: 1px solid var(--border-line);
+        }
+        .header-top {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 5%; border-bottom: 1px solid var(--border-line);
+        }
+        .header-spacer { width: 110px; }
+        .vogue-logo {
+            font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700;
+            letter-spacing: 4px; text-transform: uppercase; text-decoration: none; color: var(--text-main);
+        }
+        .theme-btn {
+            width: 110px; padding: 8px 14px; border-radius: 30px; border: 1px solid var(--text-main);
+            background: transparent; color: var(--text-main); font-size: 0.78rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.2s;
+        }
+        .theme-btn:hover { background: var(--text-main); color: var(--bg-page); }
+
+        .vogue-nav {
+            display: flex; justify-content: center; align-items: center; gap: 32px; padding: 14px 5%; list-style: none; flex-wrap: wrap;
+        }
+        .vogue-nav a {
+            text-decoration: none; color: var(--text-main); font-size: 0.78rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 2px; padding-bottom: 4px; transition: opacity 0.2s;
+        }
+        .vogue-nav a:hover { opacity: 0.6; }
+        .vogue-nav a.active { border-bottom: 2px solid var(--text-main); }
+
+        /* --- HEADER SECTIUNE & JUMP LINKS --- */
+        .guide-intro {
+            max-width: 1100px; margin: 30px auto 40px; padding: 0 5%; text-align: center;
+        }
+        .guide-intro h1 {
+            font-family: 'Playfair Display', serif; font-size: 2.8rem; text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 12px;
+        }
+        .guide-intro p {
+            color: var(--text-muted); font-size: 1rem; margin-bottom: 25px;
+        }
+        .jump-links {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
+            padding-bottom: 20px; border-bottom: 1px solid var(--border-line);
+        }
+        .jump-links a {
+            text-decoration: none; color: var(--text-main); font-size: 0.75rem;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+            padding: 8px 16px; border: 1px solid var(--border-line); border-radius: 20px;
+            transition: 0.2s;
+        }
+        .jump-links a:hover {
+            background-color: var(--text-main); color: var(--bg-page);
+        }
+
+        /* --- SECTIUNI CELEBRITATI CU EFECT DE DISPARITIE LA SCROLL --- */
+        .celeb-container {
+            max-width: 1150px; margin: 0 auto 100px; padding: 0 5%;
+        }
+
+        .celeb-showcase {
+            min-height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-line);
+            /* Starea initiala (invizibila / estompata) pentru efectul de fade */
+            opacity: 0;
+            transform: scale(0.94);
+            filter: blur(6px);
+            transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), 
+                        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                        filter 0.85s ease;
+        }
+
+        /* Cand sectiunea este activa pe mijlocul ecranului */
+        .celeb-showcase.in-view {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0px);
+        }
+        .celeb-top-bar {
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 20px; 
+            gap: 6px;
+        }
+        .celeb-name {
+            font-family: 'Playfair Display', serif; font-size: 2.3rem; font-weight: 700;
+        }
+        .celeb-vibe {
+            font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; color: #e00000;
+        }
+        body.dark-mode .celeb-vibe { color: #ff5555; }
+
+        /* O singura poza pusa fix pe mijloc si netaiata */
+        .celeb-collage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+        .celeb-collage img {
+            width: auto;
+            max-width: 100%;
+            max-height: 460px; /* Incape perfect pe ecran cu tot cu text */
+            object-fit: contain; /* NU mai taie scrisul RIHANNA din poza */
+            border-radius: 12px;
+            border: 1px solid var(--border-line);
+            background-color: #ffffff;
+            transition: transform 0.4s ease;
+        }
+        .celeb-collage img:hover {
+            transform: translateY(-5px);
+        }
+
+        .celeb-desc {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            max-width: 750px;
+            margin: 0 auto; /* Centreaza si paragraful sub poza */
+            text-align: center;
+        }
+        .celeb-desc strong {
+            color: var(--text-main);
+        }
+      
+
+        @media (max-width: 768px) {
+            .celeb-collage { grid-template-columns: 1fr; }
+            .celeb-collage img { height: 320px; }
+            .celeb-name { font-size: 2rem; }
+        }
+
+        /* WIDGETURI & FOOTER */
+        .help-widget { position: fixed; bottom: 25px; left: 25px; z-index: 1000; display: flex; align-items: center; gap: 10px; }
+        .help-circle { width: 44px; height: 44px; border-radius: 50%; background: #ffffff; color: #111111; border: 1px solid #ddd; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+        .help-pill { background: #ffffff; color: #111111; padding: 10px 18px; border-radius: 25px; font-size: 0.85rem; font-weight: 600; box-shadow: 0 4px 14px rgba(0,0,0,0.12); cursor: pointer; }
+        .scroll-controls { position: fixed; bottom: 25px; right: 25px; z-index: 1000; display: flex; flex-direction: column; gap: 8px; }
+        .scroll-controls button { width: 42px; height: 42px; border-radius: 50%; background: #ffffff; color: #111111; border: 1px solid #ddd; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.12); transition: 0.2s; }
+        .scroll-controls button:hover { background: #111111; color: #ffffff; }
+
+        footer {
+            padding: 30px 5%; border-top: 1px solid var(--border-line);
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;
+        }
+        .social-links a { color: var(--text-main); text-decoration: none; margin-left: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.78rem; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="vogue-header">
+        <div class="header-top">
+            <div class="header-spacer"></div>
+            <a href="index.html" class="vogue-logo">DIGITAL CLOSET</a>
+            <button id="theme-toggle" class="theme-btn">🌙 Dark</button>
+        </div>
+        <nav>
+            <ul class="vogue-nav">
+                <li><a href="index.html">Acasa</a></li>
+                <li><a href="wardrobe.html">Garderoba Mea</a></li>
+                <li><a href="planner.html">Planificator</a></li>
+                <li><a href="capsule.html">Capsule Wardrobe</a></li>
+                <li><a href="guide.html" class="active">Ghid de Stil</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- SCURT INTRO SI BUTOANE DE SALT RAPID -->
+        <section class="guide-intro">
+            <h1>Style Icons: 2006 — 2026</h1>
+            <p>Celebritatile care au dictat ce este cool si au definit stilul ultimelor doua decenii.</p>
+            <div class="jump-links">
+                <a href="#rihanna">Rihanna</a>
+                <a href="#hailey">Hailey Bieber</a>
+                <a href="#jlo">Jennifer Lopez</a>
+                <a href="#asap">A$AP Rocky</a>
+                <a href="#zendaya">Zendaya</a>
+                <a href="#bella">Bella Hadid</a>
+                <a href="#olsen">Olsen Twins</a>
+                <a href="#zoe">Zoë Kravitz</a>
+                <a href="#kendall">Kendall Jenner</a>
+                <a href="#kate">Kate Moss</a>
+            </div>
+        </section>
+
+        <!-- LISTA CELEBRITATI CU EFECT FADE IN / OUT -->
+        <div class="celeb-container">
+
+            <!-- 1. RIHANNA -->
+            <section class="celeb-showcase" id="rihanna">
+                <div class="celeb-top-bar">
+                    <h2 class="celeb-name">01. Rihanna</h2>
+                    <span class="celeb-vibe">Bold / Experimental / High-Fashion</span>
+                </div>
+                <div class="celeb-collage">
+                    <img src="riri.png" alt="Rihanna">
+                </div>
+                <p class="celeb-desc">
+                    <strong>Indrazneata si mereu imprevizibila.</strong> Rihanna este regina neoficiala a galei Met, aparand mereu cu cele mai dramatice tinute high-fashion. Cu brandul Fenty, a demonstrat ca influenta ei in moda este la fel de puternica in afara scenei ca si pe scena.
+                </p>
+            </section>
+
+            <!-- 2. HAILEY BIEBER -->
+            <section class="celeb-showcase" id="hailey">
+                <div class="celeb-top-bar">
+                    <h2 class="celeb-name">02. Hailey Bieber</h2>
+                    <span class="celeb-vibe">Streetwear / Minimalist It-Girl</span>
+                </div>
+                <div class="celeb-collage">
+                    <img src="hb.png" alt="Hailey Bieber">
+                    
+                </div>
+                <p class="celeb-desc">
+                    <strong>Orice poarta devine viral peste noapte.</strong> De la blazerele oversized Saint Laurent si tinutele Miu Miu pana la propriul ei brand Rhode, Hailey transforma piesele basic si jachetele din piele in repere absolute pentru garderoba moderna.
+                </p>
+            </section>
+
+            <!-- 3. JENNIFER LOPEZ -->
+            <section class="celeb-showcase" id="jlo">
+                <div class="celeb-top-bar">
+                    <h2 class="celeb-name">03. Jennifer Lopez</h2>
+                    <span class="celeb-vibe">Pure Glamour / Statement Luxury</span>
+                </div>
+                <div class="celeb-collage">
+                    <img src="jlo.png" alt="JLo">
+                </div>
+                <p class="celeb-desc">
+                    <strong>Definitia stilului glamorous.</strong> Paltoane voluminoase, tocuri ametitoare, genti de designer si ochelari de soare dramatici sunt semnatura ei. Chiar si in tinutele casual cu colanti si sneakersi, J.Lo intoarce toate privirile.
+                </p>
+            </section>
+
+            <!-- 4. A$AP ROCKY -->
+            <section class="celeb-showcase" id="asap">
+                <div class="celeb-top-bar">
+                    <h2 class="celeb-name">04. A$AP Rocky</h2>
+                    <span class="celeb-vibe">Avant-Garde / Tailored Streetwear</span>
+                </div>
+                <div class="celeb-collage">
+                    <img src="asap.png" alt="ASAP Rocky">
+                
+                </div>
+                <p class="celeb-desc">
+                    <strong>Avangardist, elegant si retro.</strong> Stilul lui a evoluat spre croieli impecabile (precum trench-urile Bottega Veneta), pastrand insa radacinile streetwear. Este barbatul cu care orice casa de moda vrea sa colaboreze.
+                </p>
+            </section>
+
+            <!-- 5. ZENDAYA -->
+            <section class="celeb-showcase" id="zendaya">
+                <div class="celeb-top-bar">
+                    <h2 class="celeb-name">05. Zendaya</h2>
+                    <span class="celeb-vibe">Method Dressing / Red Carpet Queen</span>
+                </div>
+                <div class="celeb-collage">
+                    <img src="zendaya.png" alt="Zendaya">
+                    
+                </div>
+                <p class="celeb-desc">
+                    <strong>Nimeni nu face un press tour ca Zendaya.</strong> De la tinutele inspirate din tenis pentru <em>Challengers</em> pana la aparitiile arhitecturale pe covorul rosu, ea transforma fiecare eveniment intr-un moment istoric de moda.
+                </p>
+            </section>
+
+            <!-- 6. BELLA HADID -->
+            <section class="celeb-showcase" id="bella">
+                <div class="celeb-top-bar">
+                    <h2 class="celeb-name">06. Bella Hadid</h2>
+                    <span class="celeb-vibe">Vintage Archival / Chameleon Chic</span>
+                </div>
+                <div class="celeb-collage">
+                    <img src="bellahaadid.png" alt="Bella Hadid">
+                    
+                </div>
+                <p class="celeb-desc">
+                    <strong>Un cameleon autentic in moda.</strong> Intr-o zi poarta Haute Couture la Cannes, iar a doua zi combina blugi evazati cu talie joasa si piese vintage rare. Bella readuce constant in trend estetica anilor '90 si 2000.
+                </p>
+            </section>
+
+            <!-- 7. MARY-KATE & ASHLEY OLSEN -->
+            <section class="celeb-showcase" id="olsen">
+                <div class="celeb-top-bar">
+                    <h2 class="celeb-name">07. Mary-Kate & Ashley Olsen</h2>
+                    <span class="celeb-vibe">Quiet Luxury / The Row Minimalist</span>
+                </div>
+                <div class="celeb-collage">
+                    <img src="olsensisters.png" alt="Olsen">
+                    
+                </div>
+                <p class="celeb-desc">
+                    <strong>Pionierii minimalismului suprem.</strong> Prin brandul lor <em>The Row</em>, gemenele Olsen au definit conceptul de „quiet luxury” — paltoane lungi impecabile, tonuri neutre si piese atemporale care stau la baza oricarui Capsule Wardrobe.
+                </p>
+            </section>
+
+            <!-- 8. ZOE KRAVITZ -->
+            <section class="celeb-showcase" id="zoe">
+                <div class="celeb-top-bar">
+                    <h2 class="celeb-name">08. Zoë Kravitz</h2>
+                    <span class="celeb-vibe">Effortless Edge / All-Black Muse</span>
+                </div>
+                <div class="celeb-collage">
+                    <img src="zoekravitz.png" alt="Zoe">
+                    
+                </div>
+                <p class="celeb-desc">
+                    <strong>Definitia suprema pentru „cool girl”.</strong> Fie ca poarta Saint Laurent pe covorul rosu sau combina o camasa lejera cu pantaloni negri si ochelari statement pe strada, Zoë demonstreaza cat de interesanta poate fi o tinuta minimalista.
+                </p>
+            </section>
+
+            <!-- 9. KENDALL JENNER -->
+            <section class="celeb-showcase" id="kendall">
+                <div class="celeb-top-bar">
+                    <h2 class="celeb-name">09. Kendall Jenner</h2>
+                    <span class="celeb-vibe">Elevated Basics / Modern Classic</span>
+                </div>
+                <div class="celeb-collage">
+                    <img src="kendall.png" alt="Kendall">
+                    
+                </div>
+                <p class="celeb-desc">
+                    <strong>Una dintre cele mai frumoase evolutii de stil.</strong> Dupa 2020, Kendall a adoptat o estetica eleganta si rafinata, bazata pe piese clasice de la Khaite, Toteme si The Row — blugi drepti perfecti, tricouri simple si loafers din piele.
+                </p>
+            </section>
+
+            <!-- 10. KATE MOSS -->
+            <section class="celeb-showcase" id="kate">
+                <div class="celeb-top-bar">
+                    <h2 class="celeb-name">10. Kate Moss</h2>
+                    <span class="celeb-vibe">'90s Supermodel / Rock & Roll Boho</span>
+                </div>
+                <div class="celeb-collage">
+                    <img src="katemoss.png" alt="Kate Moss">
+                    
+                </div>
+                <p class="celeb-desc">
+                    <strong>Eterna muza a modei.</strong> Tinutele ei de acum doua decenii sunt la fel de relevante si astazi. Nimeni nu poate face o pereche de jeansi, cizme scurte si o bluza fluida sau o jacheta din piele sa arate mai cool decat Kate Moss.
+                </p>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- WIDGETURI & FOOTER -->
+    <div class="help-widget" id="btn-help">
+        <button class="help-circle">?</button>
+    </div>
+    <div class="scroll-controls">
+        <button id="btn-up" title="Mergi Sus">↑</button>
+        <button id="btn-down" title="Mergi Jos">↓</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Digital Closet & Outfit Planner.</p>
+        <div class="social-links">
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+            <a href="#">TikTok</a>
+            <a href="#">Facebook</a>
+        </div>
+    </footer>
+
+    <!-- SCRIPT PENTRU DARK MODE & EFECTUL DE DISPARITIE LA SCROLL -->
+    <script>
+        // Dark Mode
+        const themeBtn = document.getElementById("theme-toggle");
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+            themeBtn.innerText = "☀️ Light";
+        }
+        themeBtn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeBtn.innerText = "☀️ Light";
+            } else {
+                localStorage.setItem("theme", "light");
+                themeBtn.innerText = "🌙 Dark";
+            }
+        });
+
+        // Efectul de aparitie si disparitie (Fade In / Out) cand scrolezi
+        const showcases = document.querySelectorAll('.celeb-showcase');
+        const observerOptions = {
+            root: null,
+            rootMargin: '-12% 0px -12% 0px',
+            threshold: 0.25
+        };
+
+        const showcaseObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    // Cand iese din ecran (sus sau jos), dispare lin la loc
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, observerOptions);
+
+        showcases.forEach(section => {
+            showcaseObserver.observe(section);
+        });
+
+        // Butoane sus/jos/help
+        document.getElementById("btn-up").addEventListener("click", () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        document.getElementById("btn-down").addEventListener("click", () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
+        document.getElementById("btn-help").addEventListener("click", () => alert("Sfat: Da scroll in jos pentru a vedea cum apar si dispar tinutele iconice sau apasa direct pe numele vedetei de sus!"));
+    </script>
+</body>
+</html>

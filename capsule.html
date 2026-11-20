@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Closet — Capsule Wardrobe & Sustenabilitate</title>
+
+    <!-- Fonturi Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=TAG_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'TAG_ID');
+    </script>
+
+    <style>
+        /* --- STIL VIDEO CAPSULE --- */
+        .capsule-video-section {
+            max-width: 900px;
+            margin: 0 auto 80px;
+            padding: 0 5%;
+            text-align: center;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            /* Proportie 16:9 */
+            height: 0;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-line);
+        }
+
+        .video-container iframe,
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .capsule-video-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .capsule-video-section p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        :root {
+            --bg-page: #ffffff;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --header-bg: #ffffff;
+            --border-line: #e5e5e5;
+            --accent-neon: #d4ff00;
+        }
+
+        body.dark-mode {
+            --bg-page: #121212;
+            --text-main: #f5f5f5;
+            --text-muted: #aaaaaa;
+            --header-bg: #181818;
+            --border-line: #2e2e2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            padding-top: 135px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* --- HEADER --- */
+        .vogue-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--header-bg);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-line);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 5%;
+            border-bottom: 1px solid var(--border-line);
+        }
+
+        .header-spacer {
+            width: 110px;
+        }
+
+        .vogue-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .theme-btn {
+            width: 110px;
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--text-main);
+            background: transparent;
+            color: var(--text-main);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .theme-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-page);
+        }
+
+        .vogue-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            padding: 14px 5%;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .vogue-nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding-bottom: 4px;
+            transition: opacity 0.2s;
+        }
+
+        .vogue-nav a:hover {
+            opacity: 0.6;
+        }
+
+        .vogue-nav a.active {
+            border-bottom: 2px solid var(--text-main);
+        }
+
+        /* --- CONTINUT PAGINS CAPSULE --- */
+        .capsule-hero {
+            max-width: 1300px;
+            margin: 40px auto 60px;
+            padding: 0 5%;
+            text-align: center;
+        }
+
+        .capsule-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .capsule-hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .capsule-grid {
+            max-width: 1300px;
+            margin: 0 auto 80px;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .capsule-card {
+            background-color: var(--header-bg);
+            border: 1px solid var(--border-line);
+            border-radius: 20px;
+            padding: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .capsule-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .capsule-card span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .capsule-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .capsule-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+
+        /* PALETA DE CULORI SECTIUNE */
+        .palette-section {
+            background-color: var(--header-bg);
+            border-top: 1px solid var(--border-line);
+            border-bottom: 1px solid var(--border-line);
+            padding: 70px 5%;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .palette-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .palette-section p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .color-dots {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .color-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--border-line);
+        }
+
+        .color-item span {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* GHIDUL PAS CU PAS */
+        .steps-container {
+            max-width: 1300px;
+            margin: 0 auto 90px;
+            padding: 0 5%;
+        }
+
+        .steps-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .step-box {
+            border-left: 2px solid var(--text-main);
+            padding-left: 25px;
+        }
+
+        .step-box h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .step-box p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        /* WIDGETURI & FOOTER */
+        .help-widget {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .help-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #111111;
+            border: 1px solid #ddd;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+        }
+
+        .help-pill {
+            background: #ffffff;
+            color: #111111;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+        }
+
+        .scroll-controls {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .scroll-controls button {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #111111;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+            transition: 0.2s;
+        }
+
+        .scroll-controls button:hover {
+            background: #111111;
+            color: #ffffff;
+        }
+
+        footer {
+            padding: 30px 5%;
+            border-top: 1px solid var(--border-line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.78rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="vogue-header">
+        <div class="header-top">
+            <div class="header-spacer"></div>
+            <a href="index.html" class="vogue-logo">DIGITAL CLOSET</a>
+            <button id="theme-toggle" class="theme-btn">🌙 Dark</button>
+        </div>
+        <nav>
+            <ul class="vogue-nav">
+                <li><a href="index.html">Acasa</a></li>
+                <li><a href="wardrobe.html">Garderoba Mea</a></li>
+                <li><a href="planner.html">Planificator</a></li>
+                <li><a href="capsule.html" class="active">Capsule Wardrobe</a></li>
+                <li><a href="guide.html">Ghid de Stil</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO CAPSULE -->
+        <section class="capsule-hero">
+            <h1>Filozofia Capsule Wardrobe</h1>
+            <p>Mai putin inseamna mai mult. Descopera cum sa iti construiesti un dulap inteligent bazat pe piese
+                esentiale care se combina perfect intre ele.</p>
+        </section>
+
+        <!-- SECTIUNE VIDEO CAPSULE WARDROBE -->
+        <!-- SECTIUNE VIDEO CAPSULE WARDROBE -->
+        <section class="capsule-video-section">
+            <h3>Ghid Video: Cum sa iti organizezi garderoba</h3>
+            <p>Urmareste materialul de mai jos pentru a intelege pasii practici in crearea unui stil minimalist.</p>
+
+            <div class="video-container"
+                style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%; border-radius: 16px;">
+                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                    src="https://www.youtube.com/embed/525GKpyRo88?rel=0" title="Wardrobe Showcasing" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- GRID INFORMATII CAPSULA -->
+        <section class="capsule-grid">
+            <div class="capsule-card">
+                <span>01. Fundatia</span>
+                <h3>Piesele de Baza</h3>
+                <p>O garderoba capsula eficienta se bazeaza pe elemente neutre si versatile: tricouri din bumbac greu,
+                     jeansi cu croiala dreapta, camasi albe oversized si blazere structurate.</p>
+            </div>
+
+            <div class="capsule-card">
+                <span>02. Organizare</span>
+                <h3>Regula Tripla</h3>
+                <p>Fiecare piesa noua pe care o adaugi in Digital Closet trebuie sa poata fi combinata cu cel putin 
+                    alte 3 articole existente deja in dulapul tau. Aceasta este cheia eliminarii dilemei „nu am cu ce ma imbraca”.</p>
+            </div>
+
+            <div class="capsule-card">
+                <span>03. Sustenabilitate</span>
+                <h3>Calitate peste Cantitate</h3>
+                <p>Prin digitalizarea hainelor, constientizezi exact ce detii, reduci achizitiile impulsive si
+                    prelungesti durata de viata a fiecarui articol vestimentar preferat.</p>
+            </div>
+        </section>
+
+        <!-- PALETA DE CULORI -->
+        <section class="palette-section">
+            <h3>Paleta de Culori Recomandata</h3>
+            <p>Nuantele neutre si pamantii formeaza nucleul perfect pentru mix & match instant.</p>
+            <div class="color-dots">
+                <div class="color-item">
+                    <div class="dot" style="background-color: #ffffff;"></div>
+                    <span>Alb Optic</span>
+                </div>
+                <div class="color-item">
+                    <div class="dot" style="background-color: #f0eae1;"></div>
+                    <span>Bej / Crem</span>
+                </div>
+                <div class="color-item">
+                    <div class="dot" style="background-color: #8b7d6b;"></div>
+                    <span>Taupe</span>
+                </div>
+                <div class="color-item">
+                    <div class="dot" style="background-color: #2b2b2b;"></div>
+                    <span>Negru Mat</span>
+                </div>
+                <div class="color-item">
+                    <div class="dot" style="background-color: #3b4238;"></div>
+                    <span>Verde Olive</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- GHIDUL PAS CU PAS -->
+        <section class="steps-container">
+            <h2 class="steps-title">Cum sa incepi in 3 pasi</h2>
+            <div class="steps-grid">
+                <div class="step-box">
+                    <h4>1. Curatarea Totala (Decluttering)</h4>
+                    <p>Scoate absolut tot din dulap. Grupeaza hainele pe categorii si intreaba-te: „As cumpara aceasta
+                        piesa din nou astazi?” Daca raspunsul e nu, analizeaza daca e o problema de marime sau de stil.
+                    </p>
+                </div>
+                <div class="step-box">
+                    <h4>2. Stabilirea Paletei</h4>
+                    <p>Alege 2 culori de baza (ex. negru si alb) si 1-2 culori de accent (ex. bej, bleumarin sau o
+                        nuanta puternica de rosu) pentru a asigura armonia vizuala a tuturor tinutelor.</p>
+                </div>
+                <div class="step-box">
+                    <h4>3. Integrarea Digitala</h4>
+                    <p>Adauga piesele validate in sectiunea de Garderoba Mea si incepe sa testezi combinatii noi in
+                        Planificator, eliminand deciziile stresante de dimineata.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- WIDGETURI & FOOTER -->
+    <div class="help-widget" id="btn-help">
+        <button class="help-circle">?</button>
+    </div>
+    <div class="scroll-controls">
+        <button id="btn-up" title="Mergi Sus">↑</button>
+        <button id="btn-down" title="Mergi Jos">↓</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Digital Closet & Outfit Planner.</p>
+        <div class="social-links">
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+            <a href="#">TikTok</a>
+            <a href="#">Facebook</a>
+        </div>
+    </footer>
+
+    <!-- SCRIPT -->
+    <script>
+        const themeBtn = document.getElementById("theme-toggle");
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+            themeBtn.innerText = "☀️ Light";
+        }
+        themeBtn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeBtn.innerText = "☀️ Light";
+            } else {
+                localStorage.setItem("theme", "light");
+                themeBtn.innerText = "🌙 Dark";
+            }
+        });
+
+        document.getElementById("btn-up").addEventListener("click", () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        document.getElementById("btn-down").addEventListener("click", () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
+        document.getElementById("btn-help").addEventListener("click", () => alert("Sfat: O garderoba capsula reduce deciziile zilnice si iti pune in valoare stilul personal!"));
+    </script>
+</body>
+
+</html>
