@@ -213,7 +213,28 @@
             display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;
         }
         .social-links a { color: var(--text-main); text-decoration: none; margin-left: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.78rem; }
-    </style>
+        @media (max-width: 768px) {
+    /* Face header-ul mult mai compact pe telefon */
+    .header-spacer {
+        display: none !important;
+    }
+    .logo, .vogue-logo, header h1 {
+        font-size: 1.4rem !important;
+        letter-spacing: 2px !important;
+    }
+    .vogue-nav {
+        gap: 8px 14px !important;
+        padding: 8px 10px !important;
+    }
+    .vogue-nav a {
+        font-size: 0.72rem !important;
+    }
+    /* Impinge continutul paginii mai jos ca sa nu mai fie taiate titlurile */
+    main, .hero, .page-header {
+        padding-top: 170px !important;
+    }
+}
+   </style>
 </head>
 <body>
 

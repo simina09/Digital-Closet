@@ -93,7 +93,7 @@
         }
         .whering-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('shirt.jpg');
+            background-image: url('Shirt.jpg');
             background-size: cover; background-position: center;
             filter: blur(2px) brightness(0.62); transform: scale(1.04); z-index: 1;
         }
@@ -185,24 +185,26 @@
         .mag-headline { font-family: 'Playfair Display', serif; font-size: 1.5rem; line-height: 1.25; margin-bottom: 12px; font-weight: 600; }
         .mag-author { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: var(--text-muted); }
 
-        /* --- MODAL ZOOM --- */
+        /* --- MODAL ZOOM (Z-INDEX RIDICAT PESTE HEADER) --- */
         .zoom-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(10px);
-            z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
+            z-index: 99999; display: none; align-items: center; justify-content: center; padding: 20px;
         }
         .zoom-overlay.active { display: flex; }
         .zoom-card-content {
             background: var(--bg-page); color: var(--text-main); max-width: 700px; width: 100%;
-            border-radius: 20px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+            max-height: 90vh; overflow-y: auto;
+            border-radius: 20px; box-shadow: 0 25px 60px rgba(0,0,0,0.5);
             position: relative; animation: scaleUp 0.3s ease;
         }
         @keyframes scaleUp { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .zoom-card-content img { width: 100%; max-height: 70vh; height: auto; object-fit: contain; }
-        .zoom-card-body { padding: 30px; text-align: center; }
+        .zoom-card-content img { width: 100%; max-height: 60vh; height: auto; object-fit: contain; display: block; }
+        .zoom-card-body { padding: 25px; text-align: center; }
         .zoom-close-btn {
-            position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.6); color: #fff;
-            border: none; width: 38px; height: 38px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; z-index: 10;
+            position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.75); color: #fff;
+            border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem;
+            cursor: pointer; z-index: 100000; display: flex; align-items: center; justify-content: center;
         }
 
         /* --- BRANDURI --- */
@@ -284,7 +286,20 @@
 
         footer { padding: 30px 5%; border-top: 1px solid var(--border-line); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
         .social-links a { color: var(--text-main); text-decoration: none; margin-left: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.78rem; }
-        @media (max-width: 850px) { body { padding-top: 165px; } .vogue-logo { font-size: 1.6rem; } .header-spacer { display: none; } .vogue-nav { gap: 15px; flex-wrap: wrap; } .whering-content h1 { font-size: 3rem; } footer { flex-direction: column; gap: 12px; text-align: center; } }
+
+        /* --- RESPONSIVE MOBIL --- */
+        @media (max-width: 850px) {
+            body { padding-top: 145px; }
+            .header-spacer { display: none; }
+            .header-top { padding: 12px 5%; }
+            .vogue-logo { font-size: 1.4rem; letter-spacing: 2px; }
+            .theme-btn { width: auto; padding: 6px 12px; font-size: 0.72rem; }
+            .vogue-nav { gap: 8px 14px; padding: 10px 5%; }
+            .vogue-nav a { font-size: 0.72rem; letter-spacing: 1px; }
+            .whering-content h1 { font-size: 2.8rem; }
+            .whering-content p { font-size: 1rem; }
+            footer { flex-direction: column; gap: 12px; text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -423,7 +438,6 @@
         </div>
     </div>
 
-    <!-- HTML SERTAR WISHLIST (NOU) -->
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     <div class="wishlist-sidebar" id="wishlist-sidebar">
         <div class="sidebar-header">
@@ -431,7 +445,6 @@
             <button class="close-sidebar-btn" id="close-sidebar-btn">&times;</button>
         </div>
         <div class="wishlist-items-grid" id="wishlist-items-grid">
-            <!-- Pozele salvate vor aparea aici automat din JavaScript -->
             <div class="wishlist-empty-msg">Inca nu ai salvat nicio piesa. Foloseste butoanele din Dream Closet!</div>
         </div>
     </div>
@@ -498,7 +511,7 @@
         document.getElementById("btn-down").addEventListener("click", () => { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); });
         document.getElementById("btn-help").addEventListener("click", () => { alert("Sfat: Cauta piesele preferate in Dream Closet si salveaza-le in Wishlist!"); });
 
-        // --- SCRIPT WISHLIST INFINIT & SIDEBAR (NOU) ---
+        // --- SCRIPT WISHLIST INFINIT & SIDEBAR ---
         const wishlistPool = [
             { id: "pantofi", src: "adidas.jpg", alt: "Pantofi" },
             { id: "geanta", src: "geanta.jpg", alt: "Geanta" },
@@ -513,7 +526,6 @@
         let poolIndex = 0;
         const wishlistBtns = document.querySelectorAll('.wishlist-btn');
         
-        // Logica de deschidere a sertarului lateral
         const openSidebarBtn = document.getElementById('open-wishlist-btn');
         const closeSidebarBtn = document.getElementById('close-sidebar-btn');
         const sidebar = document.getElementById('wishlist-sidebar');
@@ -553,7 +565,6 @@
             overlay.classList.remove('active');
         });
 
-        // Logica butoanelor din cardurile de pe pagina
         wishlistBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -561,7 +572,6 @@
                 const img = card.querySelector('img');
                 const itemId = btn.getAttribute('data-item');
 
-                // Salvam un obiect complet cu link-ul pozei ca sa il afisam in sertar
                 const currentSaved = JSON.parse(localStorage.getItem('digitalClosetWishlistObj')) || [];
                 const alreadyExists = currentSaved.some(item => item.id === itemId);
 
@@ -591,7 +601,7 @@
             });
         });
 
-        // Chatbot 
+        // Chatbot
         const chatToggleBtn = document.getElementById('chat-toggle-btn');
         const chatBox = document.getElementById('chat-box');
         const chatCloseBtn = document.getElementById('chat-close-btn');
@@ -606,7 +616,6 @@
             const text = chatInput.value.trim();
             if (!text) return;
 
-            // Afisam mesajul tau
             const userMsg = document.createElement('div');
             userMsg.classList.add('message', 'user');
             userMsg.innerText = text;
@@ -614,14 +623,12 @@
             chatInput.value = '';
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // Mesaj de incarcare care simuleaza ca AI-ul gandeste
             const loadingMsg = document.createElement('div');
             loadingMsg.classList.add('message', 'bot');
             loadingMsg.innerText = 'Caut inspiratie in dulapul digital...';
             chatMessages.appendChild(loadingMsg);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // Functia care proceseaza cuvintele (fara nevoie de internet sau chei API)
             setTimeout(() => {
                 const lowerText = text.toLowerCase();
                 let aiText = "Stilul inseamna sa te exprimi fara sa vorbesti. Exploreaza aplicatia pentru a-ti gasi estetica perfecta!";
@@ -640,7 +647,7 @@
 
                 loadingMsg.innerText = aiText;
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 1200); // Intarziere realista de 1.2 secunde
+            }, 1200);
         }
         chatSend.addEventListener('click', handleUserMessage);
         chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleUserMessage(); });
