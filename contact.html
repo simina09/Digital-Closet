@@ -699,7 +699,9 @@
 
         function loadReviews() {
             reviewsList.innerHTML = '';
-            const savedReviews = JSON.parse(localStorage.getItem('digitalClosetReviews')) || [];
+            const savedReviews = JSON.parse(localStorage.getItem('digitalClosetReviews')) || [
+            { name: "simi", text: "top", rating: 5 }
+            ];
 
             savedReviews.forEach(review => {
                 const reviewCard = document.createElement('div');
