@@ -1,3 +1,9 @@
+Codul complet este gata de copy-paste. Am păstrat absolut totul neschimbat, modificând doar două lucruri:
+
+1. ID-urile unice (`pantofi-1`, `pantofi-2`, `geanta-1`, `geanta-2` etc.) la Wishlist, ca să se salveze fiecare piesă în sertăraș.
+2. Răspunsurile noi din chatbot (soare, ploaie, frig, facultate, birou, petrecere).
+
+```html
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -397,13 +403,13 @@
                 <div class="dream-card">
                     <img src="pantofi_platforme.jpg" alt="Pantofi Toc">
                     <div class="dream-overlay">
-                        <button class="dream-btn wishlist-btn" data-item="pantofi">Adauga in Wishlist 🎀</button>
+                        <button class="dream-btn wishlist-btn" data-item="pantofi-platforme">Adauga in Wishlist 🎀</button>
                     </div>
                 </div>
                 <div class="dream-card">
                     <img src="pantofi_toc2.jpg" alt="Pantofi Toc">
                     <div class="dream-overlay">
-                        <button class="dream-btn wishlist-btn" data-item="pantofi">Adauga in Wishlist 🎀</button>
+                        <button class="dream-btn wishlist-btn" data-item="pantofi-toc-2">Adauga in Wishlist 🎀</button>
                     </div>
                 </div>
             </div>
@@ -553,14 +559,14 @@
 
         // --- SCRIPT WISHLIST INFINIT & SIDEBAR ---
         const wishlistPool = [
-            { id: "pantofi", src: "adidas.jpg", alt: "Pantofi" },
-            { id: "geanta", src: "geanta.jpg", alt: "Geanta" },
-            { id: "geanta", src: "geanta2.jpg", alt: "Geanta" },
-            { id: "top", src: "top.jpg", alt: "Maiou" },
-            { id: "pantofi-toc", src: "pantofi_toc.jpg", alt: "Pantofi Toc" },
-            { id: "bottom", src: "fusta_denim.jpg", alt: "Fusta Denim" },
-            { id: "pantofi", src: "adidas2.jpg", alt: "Pantofi" },
-            { id: "pantofi", src: "cizme.jpg", alt: "Cizme" },
+            { id: "pantofi-adidas-1", src: "adidas.jpg", alt: "Pantofi" },
+            { id: "geanta-1", src: "geanta.jpg", alt: "Geanta" },
+            { id: "geanta-2", src: "geanta2.jpg", alt: "Geanta" },
+            { id: "top-1", src: "top.jpg", alt: "Maiou" },
+            { id: "pantofi-toc-1", src: "pantofi_toc.jpg", alt: "Pantofi Toc" },
+            { id: "bottom-fusta", src: "fusta_denim.jpg", alt: "Fusta Denim" },
+            { id: "pantofi-adidas-2", src: "adidas2.jpg", alt: "Pantofi" },
+            { id: "cizme-1", src: "cizme.jpg", alt: "Cizme" },
         ];
         
         let poolIndex = 0;
@@ -673,15 +679,21 @@
                 const lowerText = text.toLowerCase();
                 let aiText = "Stilul inseamna sa te exprimi fara sa vorbesti. Exploreaza aplicatia pentru a-ti gasi estetica perfecta!";
                 
-                if (lowerText.includes('ploua') || lowerText.includes('rece') || lowerText.includes('toamna') || lowerText.includes('iarna')) {
+                if (lowerText.includes('soare') || lowerText.includes('cald') || lowerText.includes('vara') || lowerText.includes('primavara')) {
+                    aiText = "Pentru o zi insorita, mergi pe materiale lejere: o camasa alba din in sau un top minimalist, pantaloni wide-leg sau o fusta midi, ochelari de soare si sandale sau tenisi albi.";
+                } else if (lowerText.includes('ploua') || lowerText.includes('ploaie') || lowerText.includes('rece') || lowerText.includes('frig') || lowerText.includes('toamna') || lowerText.includes('iarna')) {
                     aiText = "Pentru vremea de afara, recomand un trench coat clasic, un pulover din casmir pe gat si botine de piele. Layering-ul este secretul!";
+                } else if (lowerText.includes('birou') || lowerText.includes('facultate') || lowerText.includes('casual') || lowerText.includes('zi')) {
+                    aiText = "Pentru un look casual de zi, combina o pereche de blugi drepti cu un tricou simplu, un sacou relaxat si adidasi comozi.";
                 } else if (lowerText.includes('roz') || lowerText.includes('culoare') || lowerText.includes('asort')) {
                     aiText = "Rozul merge perfect cu nuante neutre (alb, bej, gri deschis) pentru un look elegant, sau cu rosu inchis pentru un contrast curajos tip 'color-blocking'.";
-                } else if (lowerText.includes('seara') || lowerText.includes('eleganta') || lowerText.includes('club') || lowerText.includes('petrecere')) {
+                } else if (lowerText.includes('seara') || lowerText.includes('eleganta') || lowerText.includes('club') || lowerText.includes('petrecere') || lowerText.includes('date')) {
                     aiText = "Alege o rochie slip-dress din matase, accesorii aurii minimaliste si un sacou supradimensionat pe umeri. Chic si fara efort!";
+                } else if (lowerText.includes('imbrac') || lowerText.includes('outfit') || lowerText.includes('tinuta')) {
+                    aiText = "Zi-mi cum e vremea (soare, ploaie, frig) sau unde mergi (facultate, birou, petrecere) si iti recomand imediat o tinuta!";
                 } else if (lowerText.includes('ajutor') || lowerText.includes('ce pot face')) {
                     aiText = "Sunt asistentul tau de stil! Foloseste 'Garderoba Mea' pentru a-ti vedea hainele si 'Planificatorul' pentru a-ti construi tinutele saptamanale.";
-                } else if (lowerText.includes('buna') || lowerText.includes('salut')) {
+                } else if (lowerText.includes('buna') || lowerText.includes('salut') || lowerText.includes('hey')) {
                     aiText = "Buna! Sunt aici sa te ajut cu idei de outfit-uri si asortari. Cu ce piesa vrei sa incepem?";
                 }
 
@@ -694,3 +706,5 @@
     </script>
 </body>
 </html>
+
+```
